@@ -1,0 +1,21 @@
+﻿<Page x:Class="OneSolutionSudoku.Main_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OneSolutionSudoku"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" d:DesignWidth="800"
+      Title="Page1" Height="526">
+    <Page.Resources>
+        <sys:Double x:Key="ButtonFontSize">35</sys:Double>
+        <sys:Double x:Key="ButtonWidth">260</sys:Double>
+    </Page.Resources>
+    <Grid Margin="10">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,50,0,0" Text="Generátor sudoku s daným postupem" FontSize="30" Foreground="WhiteSmoke" FontWeight="Black"/>
+        <Button Name="Button_Generation" Click="Button_Generate_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 110, 0, 0" Padding="10, 10, 10, 10" Width ="{StaticResource ButtonWidth}" Content="Generovat" FontSize="{StaticResource ButtonFontSize}"/>
+        <Button Name="Button_OwnCreation" Click="Button_OwnCreation_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 210, 0, 0" Padding="10, 10, 10, 10" Width ="{StaticResource ButtonWidth}" Content="Vlastní návrh" FontSize="{StaticResource ButtonFontSize}"/>
+        <Button Name="Button_Options" Click="Button_Options_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 310, 0, 0" Padding="10, 10, 10, 10" Width ="{StaticResource ButtonWidth}" Content="Možnosti" FontSize="{StaticResource ButtonFontSize}"/>
+        <Button Name="Button_End" Click="Button_End_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 410, 0, 0" Padding="10, 10, 10, 10" Width ="{StaticResource ButtonWidth}" Content="Ukončit" FontSize="{StaticResource ButtonFontSize}"/>
+    </Grid>
+</Page>
