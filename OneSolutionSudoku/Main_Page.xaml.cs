@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,14 @@ namespace OneSolutionSudoku
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class Main_Page : Page
+    public partial class Main_Page : Page, Ipage
     {
         public Main_Page()
         {
             InitializeComponent();
-        }
+			languageHandler.ChangeLanguage += OnChangeLanguage;
+			languageHandler.SetLanguage();
+		}
 		private void Button_End_Click(object sender, RoutedEventArgs e)
 		{
 			System.Windows.Application.Current.Shutdown();
@@ -39,6 +42,22 @@ namespace OneSolutionSudoku
 		private void Button_Options_Click(object sender, RoutedEventArgs e)
 		{
 			bool success = NavigationService.Navigate(new Options_Page());
+		}
+		public void OnChangeLanguage(object sender, string selectedLanguague)
+		{
+			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.languages[selectedLanguague];
+			foreach (string key in languageKorpus.Keys)
+			{
+				var findMeResult = this.FindName(key);
+				if (findMeResult is TextBlock textBlock)
+				{
+					textBlock.Text = languageKorpus[key];
+				}
+				else if (findMeResult is Button button)
+				{ 
+					button.Content = languageKorpus[key];
+				}
+			}
 		}
 	}
 }

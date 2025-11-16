@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using System.Windows.Media;
 
 namespace OneSolutionSudoku
 {
@@ -9,6 +10,13 @@ namespace OneSolutionSudoku
     /// </summary>
     public partial class App : Application
     {
-    }
+        public void changeColors()
+        {
+            Application.Current.Resources["PrimaryColor"] = colorHandler.PrimaryColor;
+			Application.Current.Resources["SecondaryColor"] = colorHandler.SecondaryColor;
+			Application.Current.Resources["BackgroundColor"] = colorHandler.BackgroundColor;
+		}
+        public static App Instance = (App)Application.Current;
+	}
 
 }

@@ -8,6 +8,6 @@
         mc:Ignorable="d"
         Title="SudokuGen" Height="544" Width="800">
     <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Background="Black"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Background="{DynamicResource BackgroundColor}"/>
     </Grid>
 </Window>
