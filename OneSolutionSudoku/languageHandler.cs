@@ -21,13 +21,13 @@ namespace OneSolutionSudoku
 			{"Button_OwnCreation", "Vlastní tvorba"},
 			{"Button_Generation", "Generovat"},
 			{"Button_Options", "Možnosti"},
-			{"TextBlock_DefaultSaveLocation", "Výchozí úložiště" },
 			{"TextBlock_ColorsSelection", "Barvy"},
 			{"TextBlock_LanguageSelection", "Jazyk"},
 			{"Button_Confirm", "Potvrdit"},
 			{"Button_Back", "Zpět"},
-			{"Languague_Czech", "Čeština"},
-			{"Languague_English", "Angličtina"}
+			{"Button_FolderSelect", "Vyber úložiště"},
+			{"Button_Defaults", "Původní nastavení"}
+
 		};
 		private static readonly Dictionary<string, string> englishLanguage = new Dictionary<string, string>
 		{
@@ -36,13 +36,12 @@ namespace OneSolutionSudoku
 			{"Button_OwnCreation", "Create"},
 			{"Button_Generation", "Generate"},
 			{"Button_Options", "Options"},
-			{"TextBlock_DefaultSaveLocation", "Default save file" },
 			{"TextBlock_ColorsSelection", "Colors"},
 			{"TextBlock_LanguageSelection", "Language"},
 			{"Button_Confirm", "Confirm"},
 			{"Button_Back", "Back"},
-			{"Languague_Czech", "Czech"},
-			{"Languague_English", "English"}
+			{"Button_FolderSelect", "Select save location"},
+			{"Button_Defaults", "Default settings"}
 		};
 		public static readonly Dictionary<string, string> languageNames = new Dictionary<string, string>
 		{

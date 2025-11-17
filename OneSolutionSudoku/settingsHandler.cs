@@ -18,6 +18,7 @@ namespace OneSolutionSudoku
 			writer.WriteLine($"Primary color:#{colorHandler.PrimaryColor.Color.R:X2}{colorHandler.PrimaryColor.Color.G:X2}{colorHandler.PrimaryColor.Color.B:X2}");
 			writer.WriteLine($"Secondary color:#{colorHandler.SecondaryColor.Color.R:X2}{colorHandler.SecondaryColor.Color.G:X2}{colorHandler.SecondaryColor.Color.B:X2}");
 			writer.WriteLine($"Background color:#{colorHandler.BackgroundColor.Color.R:X2}{colorHandler.BackgroundColor.Color.G:X2}{colorHandler.BackgroundColor.Color.B:X2}");
+			writer.WriteLine($"Save location:{SudokuSavingHandler.saveLocation}");
 			writer.Close();
 			settingsFile.Close();
 		}

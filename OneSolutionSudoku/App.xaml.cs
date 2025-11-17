@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using System.Windows.Media;
+using Application = System.Windows.Application;
 
 namespace OneSolutionSudoku
 {
