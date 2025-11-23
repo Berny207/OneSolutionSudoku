@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -124,8 +125,17 @@ namespace OneSolutionSudoku
 				}
 			}
 			// Remove cells that have set value
-			affectedCells = affectedCells.Where(coord => this.grid[coord.row, coord.column].value != 0).ToList();
-			return affectedCells;
+			List<Coordinates> tempAffectedCells = new List<Coordinates>();
+			foreach (Coordinates coord in affectedCells)
+			{
+				Cell cell = this.GetCell(coord);
+				if(cell.value == 0)
+				{
+					tempAffectedCells.Add(coord);
+				}
+			}
+			
+			return tempAffectedCells;
 		}
 
 
@@ -163,6 +173,33 @@ namespace OneSolutionSudoku
 			affectedCells = affectedCells.Where(coord => this.grid[coord.row, coord.column].value != 0).ToList();
 			affectedCells = affectedCells.Where(coord => this.grid[coord.row, coord.column].possibleValues.Contains(value) == true).ToList();
 			return affectedCells.Count;
+		}
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+			for (int row = 0; row < 9; row++)
+			{
+				for (int col = 0; col < 9; col++)
+				{
+					sb.Append(this.grid[row, col].value);
+					if (col < 8)
+					{
+						sb.Append(" ");
+					}
+				}
+				sb.AppendLine();
+			}
+			return sb.ToString();
+		}
+
+		public void revertAssignment(Step step)
+		{
+			this.grid[step.coordinates.row, step.coordinates.column].value = 0;
+			foreach (Coordinates updatedCellCoordinate in step.affectedCoordinates)
+			{
+				this.GetCell(updatedCellCoordinate).possibleValues.Add(step.value);
+			}
 		}
 	}
 }

@@ -2,6 +2,8 @@
 using System.Data;
 using System.Windows;
 using System.Windows.Media;
+using System;
+using System.Runtime.InteropServices;
 using Application = System.Windows.Application;
 
 namespace OneSolutionSudoku
@@ -18,6 +20,15 @@ namespace OneSolutionSudoku
 			Application.Current.Resources["BackgroundColor"] = colorHandler.BackgroundColor;
 		}
         public static App Instance = (App)Application.Current;
+
+		protected override void OnStartup(StartupEventArgs e)
+		{
+			base.OnStartup(e);
+			[DllImport("kernel32.dll")]
+			static extern bool AllocConsole();
+			AllocConsole();
+			Console.WriteLine("Console opened!");
+		}
 	}
 
 }

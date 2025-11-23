@@ -35,11 +35,18 @@ namespace OneSolutionSudoku
 		}
 		private void Button_OwnCreation_Click(object sender, RoutedEventArgs e)
 		{
-
+			Sudoku testDoku = new Sudoku();
+			List<Coordinates> toUpdate = testDoku.UpdateSpace(new Coordinates(0, 0), 5);
+			foreach (Coordinates coordinate in toUpdate)
+			{
+				Console.WriteLine(coordinate.row + " " + coordinate.column);
+			}
+			Console.WriteLine(toUpdate.Count);
 		}
 		private void Button_Generate_Click(object sender, RoutedEventArgs e)
 		{
-
+			Sudoku generatedBaseplate = BaseplateGenerator.GenerateBaseplate();
+			System.Windows.MessageBox.Show(generatedBaseplate.ToString());
 		}
 		private void Button_Options_Click(object sender, RoutedEventArgs e)
 		{
