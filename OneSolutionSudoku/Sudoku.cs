@@ -13,7 +13,7 @@ namespace OneSolutionSudoku
 	/// If value is 0, cell is empty<br/>
 	/// If value is non-zero, possibleValues is empty and should not be used
 	/// </summary>
-	internal struct Cell
+	internal class Cell
 	{
 		public int value;
 		public List<int> possibleValues;
@@ -55,6 +55,10 @@ namespace OneSolutionSudoku
 			this.row = row;
 			this.column = column;
 		}
+		public override string ToString()
+		{
+			return $"{this.row} {this.column}";
+		}
 	}
 	/// <summary>
 	/// main Sudoku class containing 9x9 grid of Cells and methods to manipulate it
@@ -83,6 +87,20 @@ namespace OneSolutionSudoku
 		{
 			return this.grid[coordinates.row, coordinates.column];
 		}
+		public void SetCell(Coordinates coordinates, int value)
+		{
+			List<Coordinates> neighbours = GetSpaceNeighbours(coordinates);
+			foreach (Coordinates neighbour in neighbours)
+			{
+				Cell neighbourCell = this.GetCell(neighbour);
+				if (neighbourCell.value == value && value != 0)
+				{
+					throw new Exception("Invalid Sudoku created");
+				}
+			}
+			this.grid[coordinates.row, coordinates.column].value = value;
+		}
+
 		/// <summary>
 		/// Updates the cell at the given coordinates with the given value<br/>
 		/// Returns a list of coordinates of all affected cells in the same row, column, and 3x3 box
@@ -90,11 +108,9 @@ namespace OneSolutionSudoku
 		/// <param name="coordinates"></param>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public List<Coordinates> UpdateSpace(Coordinates coordinates, int value)
+		public List<Coordinates> GetSpaceNeighbours(Coordinates coordinates)
 		{
 			List<Coordinates> affectedCells = new List<Coordinates>();
-			// Update the cell at the given coordinates
-			this.grid[coordinates.row, coordinates.column].value = value;
 			// Add all affected cells in the same row
 			for (int col = 0; col < 9; col++)
 			{
@@ -124,21 +140,22 @@ namespace OneSolutionSudoku
 					}
 				}
 			}
-			// Remove cells that have set value
-			List<Coordinates> tempAffectedCells = new List<Coordinates>();
-			foreach (Coordinates coord in affectedCells)
-			{
-				Cell cell = this.GetCell(coord);
-				if(cell.value == 0)
-				{
-					tempAffectedCells.Add(coord);
-				}
-			}
-			
-			return tempAffectedCells;
+			return affectedCells;
 		}
 
-
+		public List<Coordinates> FilterOutFullCells(List<Coordinates> coordinatesList)
+		{
+			List<Coordinates> filteredList = new List<Coordinates>();
+			foreach (Coordinates coord in coordinatesList)
+			{
+				Cell cell = this.GetCell(coord);
+				if (cell.value == 0)
+				{
+					filteredList.Add(coord);
+				}
+			}
+			return filteredList;
+		}
 		public int AssigmentVariableWeight(Coordinates coordinates, int value)
 		{
 			List<Coordinates> affectedCells = new List<Coordinates>();
@@ -174,7 +191,20 @@ namespace OneSolutionSudoku
 			affectedCells = affectedCells.Where(coord => this.grid[coord.row, coord.column].possibleValues.Contains(value) == true).ToList();
 			return affectedCells.Count;
 		}
-
+		public string printPossibleValuesCounts()
+		{
+			StringBuilder sb = new StringBuilder();
+			for (int row = 0; row < 9; row++)
+			{
+				for (int col = 0; col < 9; col++)
+				{
+					sb.Append(this.grid[row, col].possibleValues.Count);
+					sb.Append(" ");
+				}
+				sb.AppendLine();
+			}
+			return sb.ToString();
+		}
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -183,13 +213,28 @@ namespace OneSolutionSudoku
 				for (int col = 0; col < 9; col++)
 				{
 					sb.Append(this.grid[row, col].value);
-					if (col < 8)
-					{
-						sb.Append(" ");
-					}
+					sb.Append(" ");
 				}
 				sb.AppendLine();
 			}
+			return sb.ToString();
+		}
+		public string printSudoku()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("  1 2 3 4 5 6 7 8 9 ");
+			for (int row = 0; row < 9; row++)
+			{
+				sb.Append($"{row+1} ");
+				for (int col = 0; col < 9; col++)
+				{
+					sb.Append(this.grid[row, col].value);
+						sb.Append(" ");
+				}
+				sb.Append($"{row+1}");
+				sb.AppendLine();
+			}
+			sb.AppendLine("  1 2 3 4 5 6 7 8 9 ");
 			return sb.ToString();
 		}
 
@@ -200,6 +245,38 @@ namespace OneSolutionSudoku
 			{
 				this.GetCell(updatedCellCoordinate).possibleValues.Add(step.value);
 			}
+		}
+
+		public List<Coordinates> GetEmptyCells()
+		{
+			List<Coordinates> emptyCells = new List<Coordinates>();
+			for (int row = 0; row < 9; row++)
+			{
+				for (int col = 0; col < 9; col++)
+				{
+					if (this.grid[row, col].value == 0)
+					{
+						emptyCells.Add(new Coordinates(row, col));
+					}
+				}
+			}
+			return emptyCells;
+		}
+
+		public Sudoku Clone()
+		{
+			Sudoku clone = new Sudoku();
+			for (int row = 0; row < 9; row++)
+			{
+				for (int col = 0; col < 9; col++)
+				{
+					Cell originalCell = this.grid[row, col];
+					Cell clonedCell = new Cell(originalCell.value);
+					clonedCell.possibleValues = new List<int>(originalCell.possibleValues);
+					clone.grid[row, col] = clonedCell;
+				}
+			}
+			return clone;
 		}
 	}
 }

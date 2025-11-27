@@ -23,7 +23,8 @@ namespace OneSolutionSudoku
     /// </summary>
     public partial class Main_Page : Page, Ipage
     {
-        public Main_Page()
+		static Random random = new Random();
+		public Main_Page()
         {
             InitializeComponent();
 			languageHandler.ChangeLanguage += OnChangeLanguage;
@@ -35,18 +36,20 @@ namespace OneSolutionSudoku
 		}
 		private void Button_OwnCreation_Click(object sender, RoutedEventArgs e)
 		{
-			Sudoku testDoku = new Sudoku();
-			List<Coordinates> toUpdate = testDoku.UpdateSpace(new Coordinates(0, 0), 5);
-			foreach (Coordinates coordinate in toUpdate)
-			{
-				Console.WriteLine(coordinate.row + " " + coordinate.column);
-			}
-			Console.WriteLine(toUpdate.Count);
 		}
 		private void Button_Generate_Click(object sender, RoutedEventArgs e)
 		{
 			Sudoku generatedBaseplate = BaseplateGenerator.GenerateBaseplate();
-			System.Windows.MessageBox.Show(generatedBaseplate.ToString());
+			for (int i = 0; i < 9; i++)
+			{
+				Coordinates randomCoordinate = new Coordinates(random.Next(0, 8), random.Next(0, 8));
+				generatedBaseplate.SetCell(randomCoordinate, 0);
+			}
+			generatedBaseplate = SudokuPuncturer.SetPossibleValues(generatedBaseplate);
+			Console.WriteLine(generatedBaseplate);
+			Console.WriteLine(generatedBaseplate.printPossibleValuesCounts());
+			bool test = SudokuPuncturer.SolveSudoku(generatedBaseplate);
+			Console.WriteLine(generatedBaseplate);
 		}
 		private void Button_Options_Click(object sender, RoutedEventArgs e)
 		{
