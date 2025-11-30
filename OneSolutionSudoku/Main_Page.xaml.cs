@@ -36,20 +36,11 @@ namespace OneSolutionSudoku
 		}
 		private void Button_OwnCreation_Click(object sender, RoutedEventArgs e)
 		{
+			NavigationService.Navigate(new OwnCreation_Page());
 		}
 		private void Button_Generate_Click(object sender, RoutedEventArgs e)
 		{
-			Sudoku generatedBaseplate = BaseplateGenerator.GenerateBaseplate();
-			for (int i = 0; i < 9; i++)
-			{
-				Coordinates randomCoordinate = new Coordinates(random.Next(0, 8), random.Next(0, 8));
-				generatedBaseplate.SetCell(randomCoordinate, 0);
-			}
-			generatedBaseplate = SudokuPuncturer.SetPossibleValues(generatedBaseplate);
-			Console.WriteLine(generatedBaseplate);
-			Console.WriteLine(generatedBaseplate.printPossibleValuesCounts());
-			bool test = SudokuPuncturer.SolveSudoku(generatedBaseplate);
-			Console.WriteLine(generatedBaseplate);
+			NavigationService.Navigate(new Generate_Page());
 		}
 		private void Button_Options_Click(object sender, RoutedEventArgs e)
 		{

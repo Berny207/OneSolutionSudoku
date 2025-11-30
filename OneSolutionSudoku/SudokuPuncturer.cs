@@ -11,33 +11,7 @@ namespace OneSolutionSudoku
 	internal class SudokuPuncturer
 	{
 		static Random random = new Random();
-		public static Sudoku SetPossibleValues(Sudoku sudoku)
-		{
-			for(int row = 0; row < 9; row++)
-			{
-				for (int column = 0; column < 9; column++)
-				{
-					Coordinates cellCoordinates = new Coordinates(row, column);
-					Cell cell = sudoku.GetCell(cellCoordinates);
-					if (cell.value != 0)
-					{
-						cell.possibleValues.Clear();
-						continue;
-					}
-					cell.possibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-					List<Coordinates> neighbours = sudoku.GetSpaceNeighbours(cellCoordinates);
-					foreach (Coordinates neighbourCoordinates in neighbours)
-					{
-						Cell neighbourCell = sudoku.GetCell(neighbourCoordinates);
-						if (cell.possibleValues.Contains(neighbourCell.value))
-						{
-							cell.possibleValues.Remove(neighbourCell.value);
-						}
-					}
-				}
-			}
-			return sudoku;
-		}
+
 
 		public static bool IsSudokuSolved(Sudoku sudoku)
 		{
@@ -57,7 +31,7 @@ namespace OneSolutionSudoku
 
 		public static bool isSudokuUnique(Sudoku sudoku, Coordinates newEmptyCell)
 		{
-			SetPossibleValues(sudoku);
+			sudoku.SetPossibleValues();
 			int solutionCount = 0;
 
 			foreach(int testValue in sudoku.GetCell(newEmptyCell).possibleValues)
@@ -74,6 +48,7 @@ namespace OneSolutionSudoku
 		/// <returns></returns>
 		public static bool SolveSudoku(Sudoku sudoku)
 		{
+			sudoku.SetPossibleValues();
 			Stack<Step> stepsTaken = new Stack<Step>();
 			while (true)
 			{
@@ -87,15 +62,21 @@ namespace OneSolutionSudoku
 				}
 				else
 				{
+					// Create a new Step
 					List<Coordinates> constrainedVariables = CSPAlgorithms.GetMostConstrainedVariables(sudoku);
-					if (constrainedVariables.Count > 0)
+					if(constrainedVariables.Count == 0)
+					{
+						// No empty cells left, so it's full
+						return true;
+					}
+					if (sudoku.GetCell(constrainedVariables[0]).possibleValues.Count > 0)
 					{
 						currentStep.coordinates = constrainedVariables[0];
 					}
 					else
 					{
-						// No empty cells left
-						return true;
+						// There is an empty cell with 0 possible values.
+						return false;
 					}
 				}
 				bool isPossibleAssignment = false;
@@ -142,63 +123,83 @@ namespace OneSolutionSudoku
 		{
 			Sudoku sudoku = BaseplateGenerator.GenerateBaseplate();
 			// Set possible values for all empty cells
-			SetPossibleValues(sudoku);
-
-			Stack<Step> removedCells = new Stack<Step>();
+			Stack<Elimination_Step> removedCells = new Stack<Elimination_Step>();
 			bool backtrack = false;
-			List<Coordinates> availibleCoordinates = new List<Coordinates>();
 			// Select random cell to remove
-			while (missingCells < removedCells.Count)
+			while (missingCells >= removedCells.Count)
 			{
-				Step currentStep = new Step();
+
+				Elimination_Step currentStep;
 				if (backtrack == true)
 				{
-
+					// Revert last removed cell
+					currentStep = removedCells.Pop();
+					currentStep.availibleCoordinates.Remove(currentStep.coordinates);
+					sudoku.SetCell(currentStep.coordinates, currentStep.value);
 				}
 				else
 				{
-					availibleCoordinates = new List<Coordinates>();
+					// Create new step
+					currentStep = new Elimination_Step();
 					for (int row = 0; row < 9; row++)
 					{
 						for (int column = 0; column < 9; column++)
 						{
-							availibleCoordinates.Add(new Coordinates(row, column));
+							if (sudoku.GetCell(new Coordinates(row, column)).value != 0)
+							{
+								currentStep.availibleCoordinates.Add(new Coordinates(row, column));
+							}
 						}
 					}
 				}
-				if (availibleCoordinates.Count == 0)
-				{
-					backtrack = true;
-					break;
-				}
-				Coordinates randomCoordinates = availibleCoordinates[random.Next(availibleCoordinates.Count)];
-				currentStep = new Step(randomCoordinates, sudoku.GetCell(randomCoordinates).value);
-				// Try to remove current step cell
-				backtrack = false;
-				bool isUnique = true;
-				sudoku.SetCell(currentStep.coordinates, 0);
-				sudoku.GetCell(currentStep.coordinates).possibleValues.Remove(currentStep.value);
 
-				foreach (int startValue in sudoku.GetCell(currentStep.coordinates).possibleValues)
+				// 
+				bool removedValue = false;
+				while(removedValue == false)
 				{
-					sudoku.SetCell(currentStep.coordinates, startValue);
-					isUnique = SolveSudoku(sudoku.Clone());
-					if (isUnique == true)
+					backtrack = false;
+					if (currentStep.availibleCoordinates.Count == 0)
 					{
-						break;
+						backtrack = true;
+						continue;
+					}
+					currentStep.coordinates = currentStep.availibleCoordinates[random.Next(currentStep.availibleCoordinates.Count)];
+					currentStep.value = sudoku.GetCell(currentStep.coordinates).value;
+					// Try to remove current step cell
+					bool isDuplicate = false;
+
+					// Try to find a solution with different value in the removed cell
+					foreach (int startValue in sudoku.GetCell(currentStep.coordinates).possibleValues)
+					{
+						try
+						{
+							sudoku.SetCell(currentStep.coordinates, startValue);
+						}
+						catch
+						{
+							continue;
+						}
+						isDuplicate = SolveSudoku(sudoku);
+						if(isDuplicate == true)
+						{
+							break;
+						}
 					}
 					sudoku.SetCell(currentStep.coordinates, 0);
-				}
-				sudoku.SetCell(currentStep.coordinates, 0);
 
-				if (isUnique == true)
-				{
-					removedCells.Push(currentStep);
-				}
-				else
-				{
-					sudoku.SetCell(currentStep.coordinates, currentStep.value);
-					availibleCoordinates.Remove(randomCoordinates);
+					// If at least one other solution found, revert the change
+					if (isDuplicate == false)
+					{
+						// Confirm our step
+						removedCells.Push(currentStep);
+						removedValue = true;
+					}
+					else
+					{
+						// Revert made step, try again with different cell
+						sudoku.SetCell(currentStep.coordinates, currentStep.value);
+						currentStep.availibleCoordinates.Remove(currentStep.coordinates);
+					}
 				}
 			}
 			return sudoku;

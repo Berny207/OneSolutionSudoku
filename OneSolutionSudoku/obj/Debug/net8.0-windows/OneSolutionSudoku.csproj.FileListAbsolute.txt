@@ -68,3 +68,7 @@ C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\bin\Debug\net8.0
 C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\bin\Debug\net8.0-windows\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\obj\Debug\net8.0-windows\OneSolutionSudoku.csproj.AssemblyReference.cache
 C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\obj\Debug\net8.0-windows\OneSolut.EDD1D1E3.Up2Date
+C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\obj\Debug\net8.0-windows\Generate_Page.g.cs
+C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\obj\Debug\net8.0-windows\Generate_Page.baml
+C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\obj\Debug\net8.0-windows\OwnCreation_Page.g.cs
+C:\Users\janbe\source\repos\OneSolutionSudoku\OneSolutionSudoku\obj\Debug\net8.0-windows\OwnCreation_Page.baml

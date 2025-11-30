@@ -42,5 +42,42 @@
             <Setter Property="FontSize" Value="{StaticResource TextBlockFontSize}"/>
             <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
         </Style>
+        <Style TargetType="TextBox" x:Key="DefaultTextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{DynamicResource PrimaryColor}"
+                        BorderThickness="0"
+                        CornerRadius="20"
+                        Padding="50, 20, 50, 20">
+                            <ScrollViewer x:Name="PART_ContentHost" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource SecondaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="SudokuCellTextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="SudokuCellBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+        </Style>
     </Application.Resources>
 </Application>

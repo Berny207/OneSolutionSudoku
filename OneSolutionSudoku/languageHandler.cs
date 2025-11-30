@@ -26,7 +26,19 @@ namespace OneSolutionSudoku
 			{"Button_Confirm", "Potvrdit"},
 			{"Button_Back", "Zpět"},
 			{"Button_FolderSelect", "Vyber úložiště"},
-			{"Button_Defaults", "Původní nastavení"}
+			{"Button_Defaults", "Původní nastavení"},
+			{"Button_Generate", "Generovat"},
+			{"TextBlock_FullCellAmountLabel", "Počet vyplněných polí"},
+			{"TextBlock_SudokuNameLabel", "Název Sudoku souboru"},
+			{"Button_Check", "Zkontrolovat"},
+			{"Button_Save", "Uložit"},
+			{"Button_Load", "Načti" },
+			{"Alert_InvalidGeneration_Input", "Počet plných polí musí být mezi 17 a 81"},
+			{"Alert_Incorrect_Input", "Zadaná hodnota není číslo"},
+			{"Message_SudokuCheck_OneSolution", "Sudoku má jedno řešení"},
+			{"Message_SudokuCheck_MoreSolutions", "Sudoku má více než jedno řešení" },
+			{"Message_SudokuCheck_Invalid", "Sudoku není validní"},
+			{"Message_SudokuCheck_NoSolution", "Sudoku nemá řešení" }
 
 		};
 		private static readonly Dictionary<string, string> englishLanguage = new Dictionary<string, string>
@@ -41,7 +53,19 @@ namespace OneSolutionSudoku
 			{"Button_Confirm", "Confirm"},
 			{"Button_Back", "Back"},
 			{"Button_FolderSelect", "Select save location"},
-			{"Button_Defaults", "Default settings"}
+			{"Button_Defaults", "Default settings"},
+			{"Button_Generate", "Generate"},
+			{"TextBlock_FullCellAmountLabel", "Amount of full fields"},
+			{"TextBlock_SudokuNameLabel", "Sudoku file name"},
+			{"Button_Check", "Check"},
+			{"Button_Save", "Save"},
+			{"Button_Load", "Load" },
+			{"Alert_InvalidGeneration_Input", "Amount of full cells must be between 17 and 81"},
+			{"Alert_Incorrect_Input", "Invalid number value"},
+			{"Message_SudokuCheck_OneSolution", "Sudoku is unique"},
+			{"Message_SudokuCheck_MoreSolutions", "Sudoku is not unique" },
+			{"Message_SudokuCheck_Invalid", "Sudoku is invalid"},
+			{"Message_SudokuCheck_NoSolution", "Sudoku doesn't have solution" }
 		};
 		public static readonly Dictionary<string, string> languageNames = new Dictionary<string, string>
 		{
