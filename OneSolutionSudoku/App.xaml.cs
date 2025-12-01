@@ -27,7 +27,6 @@ namespace OneSolutionSudoku
 			[DllImport("kernel32.dll")]
 			static extern bool AllocConsole();
 			AllocConsole();
-			Console.WriteLine("Console opened!");
 		}
 	}
 

@@ -93,7 +93,6 @@ namespace OneSolutionSudoku
 						}
 						continue;
 					}
-					Console.WriteLine(cellValue);
 					MessageBox.Show(IncorrectInput);
 				}
 			}
@@ -115,7 +114,6 @@ namespace OneSolutionSudoku
 					}
 					catch 
 					{
-						Console.WriteLine(text);
 						MessageBox.Show(IncorrectInput);
 					}
 				}
@@ -141,7 +139,6 @@ namespace OneSolutionSudoku
 				MessageBox.Show(CheckMessageNoSolution);
 				return;
 			}
-
 			// Is that solution unique
 			for (int row = 0; row < 9; row++)
 			{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -162,8 +163,6 @@ namespace OneSolutionSudoku
 						Cell neighbourCell = this.GetCell(neighbour);
 						if(neighbourCell.value == cell.value)
 						{
-							Console.WriteLine(neighbour);
-							Console.WriteLine(coordinates);
 							return false;
 						}
 					}
@@ -291,6 +290,21 @@ namespace OneSolutionSudoku
 			return emptyCells;
 		}
 
+		public List<Coordinates> GetFullCells()
+		{
+			List<Coordinates> emptyCells = new List<Coordinates>();
+			for (int row = 0; row < 9; row++)
+			{
+				for (int col = 0; col < 9; col++)
+				{
+					if (this.grid[row, col].value != 0)
+					{
+						emptyCells.Add(new Coordinates(row, col));
+					}
+				}
+			}
+			return emptyCells;
+		}
 		public Sudoku Clone()
 		{
 			Sudoku clone = new Sudoku();
@@ -314,22 +328,25 @@ namespace OneSolutionSudoku
 				for (int column = 0; column < 9; column++)
 				{
 					Coordinates cellCoordinates = new Coordinates(row, column);
-					Cell cell = this.GetCell(cellCoordinates);
-					if (cell.value != 0)
-					{
-						cell.possibleValues.Clear();
-						continue;
-					}
-					cell.possibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-					List<Coordinates> neighbours = this.GetSpaceNeighbours(cellCoordinates);
-					foreach (Coordinates neighbourCoordinates in neighbours)
-					{
-						Cell neighbourCell = this.GetCell(neighbourCoordinates);
-						if (cell.possibleValues.Contains(neighbourCell.value))
-						{
-							cell.possibleValues.Remove(neighbourCell.value);
-						}
-					}
+					this.SetPossibleValuesForCell(cellCoordinates);
+				}
+			}
+		}
+		public void SetPossibleValuesForCell(Coordinates cellCoordinates)
+		{
+			Cell cell = this.GetCell(cellCoordinates);
+			if (cell.value != 0)
+			{
+				cell.possibleValues.Clear();
+			}
+			cell.possibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			List<Coordinates> neighbours = this.GetSpaceNeighbours(cellCoordinates);
+			foreach (Coordinates neighbourCoordinates in neighbours)
+			{
+				Cell neighbourCell = this.GetCell(neighbourCoordinates);
+				if (cell.possibleValues.Contains(neighbourCell.value))
+				{
+					cell.possibleValues.Remove(neighbourCell.value);
 				}
 			}
 		}
