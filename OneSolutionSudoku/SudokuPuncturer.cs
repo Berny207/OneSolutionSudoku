@@ -55,7 +55,6 @@ namespace OneSolutionSudoku
 					currentStep = stepsTaken.Pop();
 					currentStep.bannedValues.Add(currentStep.value);
 					sudoku.revertAssignment(currentStep);
-					backtrack = false;
 				}
 				else
 				{
@@ -76,13 +75,14 @@ namespace OneSolutionSudoku
 						return false;
 					}
 				}
+				backtrack = false;
 				bool isPossibleAssignment = false;
 				while (isPossibleAssignment == false)
 				{
 					// Select least constrained unbanned variable 
-					List<int> constrainedValues = CSPAlgorithms.GetLeastConstrainedValues(sudoku, currentStep.coordinates, currentStep.bannedValues);
-					if (constrainedValues.Count > 0) {
-						currentStep.value = constrainedValues[0];
+					List<int> possileAssignmentValues = CSPAlgorithms.GetLeastConstrainedValues(sudoku, currentStep.coordinates, currentStep.bannedValues);
+					if (possileAssignmentValues.Count > 0) {
+						currentStep.value = possileAssignmentValues[0];
 					}
 					else
 					{
@@ -90,9 +90,13 @@ namespace OneSolutionSudoku
 						backtrack = true;
 						break;
 					}
-
 					// Try to assign value to cell
 					sudoku.SetCell(currentStep.coordinates, currentStep.value);
+					if (!sudoku.IsValid())
+					{
+						Console.WriteLine(sudoku);
+						throw new Exception("I am an idiot");
+					}
 					List<Coordinates> toUpdate = sudoku.GetSpaceNeighbours(currentStep.coordinates);
 
 					(isPossibleAssignment, List<Coordinates>? updatedCellCoordinates) = CSPAlgorithms.AssignValueWithLookahead(sudoku, currentStep.coordinates, currentStep.value);
@@ -104,7 +108,6 @@ namespace OneSolutionSudoku
 					else
 					{
 						currentStep.affectedCoordinates = updatedCellCoordinates;
-						stepsTaken.Push(currentStep);
 					}
 				}
 				if(backtrack == false)
@@ -125,19 +128,21 @@ namespace OneSolutionSudoku
 		{
 			Sudoku sudoku = BaseplateGenerator.GenerateBaseplate();
 			Sudoku solvedSudoku = sudoku.Clone();
+			SolveSudoku(solvedSudoku);
 			// Set possible values for all empty cells
 			Stack<Elimination_Step> removedCells = new Stack<Elimination_Step>();
 			bool backtrack = false;
 			// Select random cell to remove
 			while (missingCells >= removedCells.Count)
 			{
-				Elimination_Step currentStep;
+				Elimination_Step currentStep = new Elimination_Step();
 				if (backtrack == true)
 				{
 					// Revert last removed cell, backtrack
 					currentStep = removedCells.Pop();
 					currentStep.availibleCoordinates.Remove(currentStep.coordinates);
 					sudoku.SetCell(currentStep.coordinates, currentStep.value);
+					Console.WriteLine(removedCells.Count);
 				}
 				else
 				{
@@ -148,7 +153,7 @@ namespace OneSolutionSudoku
 				bool hasValueBeenRemoved = false;
 
 				// Try to remove at least ONE cell
-				while(hasValueBeenRemoved == false)
+				while (hasValueBeenRemoved == false)
 				{
 					// Trying a fresh value, set backtrack to false
 					backtrack = false;
@@ -176,7 +181,7 @@ namespace OneSolutionSudoku
 						Sudoku cloneDoku = sudoku.Clone();
 						cloneDoku.SetCell(currentStep.coordinates, startValue);
 						isDuplicate = SolveSudoku(cloneDoku);
-						if(isDuplicate == true)
+						if (isDuplicate == true)
 						{
 							// Found another solution with different value in removed cell
 							// That cell CANNOT be removed

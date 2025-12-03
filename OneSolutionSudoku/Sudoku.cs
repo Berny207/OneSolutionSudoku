@@ -145,6 +145,10 @@ namespace OneSolutionSudoku
 			return affectedCells;
 		}
 
+		/// <summary>
+		/// Checks if sudoku is valid - it doesn't have duplicate values in regions
+		/// </summary>
+		/// <returns></returns>
 		public bool IsValid()
 		{
 			for (int row = 0; row < 9; row++)
@@ -170,6 +174,12 @@ namespace OneSolutionSudoku
 			}
 			return true;
 		}
+
+		/// <summary>
+		/// Filters inputted list of coordinates to contain only empty cells
+		/// </summary>
+		/// <param name="coordinatesList"></param>
+		/// <returns></returns>
 		public List<Coordinates> FilterOutFullCells(List<Coordinates> coordinatesList)
 		{
 			List<Coordinates> filteredList = new List<Coordinates>();
@@ -183,6 +193,11 @@ namespace OneSolutionSudoku
 			}
 			return filteredList;
 		}
+
+		/// <summary>
+		/// Calculates the number of cells in the grid that are affected by assigning a specific value to the specified
+		/// coordinates
+		/// </summary>
 		public int AssigmentVariableWeight(Coordinates coordinates, int value)
 		{
 			List<Coordinates> affectedCells = new List<Coordinates>();
@@ -218,6 +233,11 @@ namespace OneSolutionSudoku
 			affectedCells = affectedCells.Where(coord => this.grid[coord.row, coord.column].possibleValues.Contains(value) == true).ToList();
 			return affectedCells.Count;
 		}
+
+		/// <summary>
+		/// returns a printable string showing amounts of possible values in each cell
+		/// </summary>
+		/// <returns></returns>
 		public string printPossibleValuesCounts()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -232,6 +252,11 @@ namespace OneSolutionSudoku
 			}
 			return sb.ToString();
 		}
+
+		/// <summary>
+		/// returns printable string
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -246,6 +271,11 @@ namespace OneSolutionSudoku
 			}
 			return sb.ToString();
 		}
+
+		/// <summary>
+		/// returns printable string with rows and columns titled
+		/// </summary>
+		/// <returns></returns>
 		public string printSudoku()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -265,6 +295,10 @@ namespace OneSolutionSudoku
 			return sb.ToString();
 		}
 
+		/// <summary>
+		/// reverts value assignment by readding deleted values into affected possible values
+		/// </summary>
+		/// <param name="step"></param>
 		public void revertAssignment(Step step)
 		{
 			this.grid[step.coordinates.row, step.coordinates.column].value = 0;
@@ -273,7 +307,10 @@ namespace OneSolutionSudoku
 				this.GetCell(updatedCellCoordinate).possibleValues.Add(step.value);
 			}
 		}
-
+		/// <summary>
+		/// returns a list of empty cell coordinates
+		/// </summary>
+		/// <returns></returns>
 		public List<Coordinates> GetEmptyCells()
 		{
 			List<Coordinates> emptyCells = new List<Coordinates>();
@@ -289,7 +326,10 @@ namespace OneSolutionSudoku
 			}
 			return emptyCells;
 		}
-
+		/// <summary>
+		/// returns a list of full cell coordinates
+		/// </summary>
+		/// <returns></returns>
 		public List<Coordinates> GetFullCells()
 		{
 			List<Coordinates> emptyCells = new List<Coordinates>();
@@ -305,6 +345,11 @@ namespace OneSolutionSudoku
 			}
 			return emptyCells;
 		}
+
+		/// <summary>
+		/// returns copy of sudoku
+		/// </summary>
+		/// <returns></returns>
 		public Sudoku Clone()
 		{
 			Sudoku clone = new Sudoku();
@@ -320,7 +365,9 @@ namespace OneSolutionSudoku
 			}
 			return clone;
 		}
-
+		/// <summary>
+		/// sets possible values based from cell values
+		/// </summary>
 		public void SetPossibleValues()
 		{
 			for (int row = 0; row < 9; row++)
@@ -332,21 +379,26 @@ namespace OneSolutionSudoku
 				}
 			}
 		}
+		/// <summary>
+		/// sets possible values for one cell
+		/// </summary>
+		/// <param name="cellCoordinates"></param>
 		public void SetPossibleValuesForCell(Coordinates cellCoordinates)
 		{
-			Cell cell = this.GetCell(cellCoordinates);
-			if (cell.value != 0)
+			//Cell cell = this.GetCell(cellCoordinates);
+			if (this.GetCell(cellCoordinates).value != 0)
 			{
-				cell.possibleValues.Clear();
+				this.GetCell(cellCoordinates).possibleValues = new List<int>();
+				return;
 			}
-			cell.possibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			this.GetCell(cellCoordinates).possibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			List<Coordinates> neighbours = this.GetSpaceNeighbours(cellCoordinates);
 			foreach (Coordinates neighbourCoordinates in neighbours)
 			{
 				Cell neighbourCell = this.GetCell(neighbourCoordinates);
-				if (cell.possibleValues.Contains(neighbourCell.value))
+				if (this.GetCell(cellCoordinates).possibleValues.Contains(neighbourCell.value))
 				{
-					cell.possibleValues.Remove(neighbourCell.value);
+					this.GetCell(cellCoordinates).possibleValues.Remove(neighbourCell.value);
 				}
 			}
 		}
