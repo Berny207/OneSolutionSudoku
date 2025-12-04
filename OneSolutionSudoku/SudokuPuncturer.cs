@@ -1,8 +1,10 @@
 ﻿using OneSolutionSudoku;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -65,11 +67,8 @@ namespace OneSolutionSudoku
 						// No empty cells left, so it's full
 						return true;
 					}
-					if (sudoku.GetCell(constrainedVariables[0]).possibleValues.Count > 0)
-					{
-						currentStep.coordinates = constrainedVariables[0];
-					}
-					else
+					currentStep.coordinates = constrainedVariables[random.Next(constrainedVariables.Count)];
+					if(sudoku.GetCell(currentStep.coordinates).possibleValues.Count == 0 )
 					{
 						// There is an empty cell with 0 possible values.
 						return false;
@@ -91,15 +90,8 @@ namespace OneSolutionSudoku
 						break;
 					}
 					// Try to assign value to cell
-					sudoku.SetCell(currentStep.coordinates, currentStep.value);
-					if (!sudoku.IsValid())
-					{
-						Console.WriteLine(sudoku);
-						throw new Exception("I am an idiot");
-					}
-					List<Coordinates> toUpdate = sudoku.GetSpaceNeighbours(currentStep.coordinates);
 
-					(isPossibleAssignment, List<Coordinates>? updatedCellCoordinates) = CSPAlgorithms.AssignValueWithLookahead(sudoku, currentStep.coordinates, currentStep.value);
+					(isPossibleAssignment, Multimap<Coordinates, int> updatedCellCoordinates) = CSPAlgorithms.AssignValue(sudoku, currentStep.coordinates, currentStep.value);
 
 					if(isPossibleAssignment == false)
 					{
@@ -123,12 +115,54 @@ namespace OneSolutionSudoku
 				}
 			}
 		}
-		// Lmao doesn't work
+		public static Coordinates SelectValueToRemove(Sudoku sudoku, List<Coordinates> availibleValues)
+		{
+			Dictionary<int, int> valueCounts = new Dictionary<int, int> 
+			{ 
+				{1, 0}, 
+				{2, 0},
+				{3, 0},
+				{4, 0},
+				{5, 0},
+				{6, 0},
+				{7, 0},
+				{8, 0},
+				{9, 0 }
+			};
+			;
+			foreach (Coordinates fullCellCoordinate in availibleValues)
+			{
+				Cell fullCell = sudoku.GetCell(fullCellCoordinate);
+				valueCounts[fullCell.value]++;
+			}
+			int highestValueCount = 0;
+			int mostFrequentValue = 0;
+			foreach(var kvp in valueCounts)
+			{
+				if(highestValueCount < kvp.Value)
+				{
+					highestValueCount = kvp.Value;
+					mostFrequentValue = kvp.Key;
+				}
+			}
+			List<Coordinates> selection = new List<Coordinates>();
+			foreach (Coordinates fullCellCoordinate in availibleValues)
+			{
+				Cell fullCell = sudoku.GetCell(fullCellCoordinate);
+				if(fullCell.value == mostFrequentValue)
+				{
+					selection.Add(fullCellCoordinate);
+				}
+			}
+			return selection[random.Next(selection.Count)];
+		}
+
 		public static Sudoku GenerateSudoku(int missingCells)
 		{
-			Sudoku sudoku = BaseplateGenerator.GenerateBaseplate();
+			Sudoku sudoku = new Sudoku();
+			SolveSudoku(sudoku);
+			sudoku.SetPossibleValues();
 			Sudoku solvedSudoku = sudoku.Clone();
-			SolveSudoku(solvedSudoku);
 			// Set possible values for all empty cells
 			Stack<Elimination_Step> removedCells = new Stack<Elimination_Step>();
 			bool backtrack = false;
@@ -138,11 +172,19 @@ namespace OneSolutionSudoku
 				Elimination_Step currentStep = new Elimination_Step();
 				if (backtrack == true)
 				{
-					// Revert last removed cell, backtrack
 					currentStep = removedCells.Pop();
 					currentStep.availibleCoordinates.Remove(currentStep.coordinates);
 					sudoku.SetCell(currentStep.coordinates, currentStep.value);
-					Console.WriteLine(removedCells.Count);
+					// Revert last removed cell, backtrack
+					/*for (int i = 0; i < 10; i++)
+					{
+						if(removedCells.Count == 0)
+						{
+							break;
+						}
+						currentStep = removedCells.Pop();
+						sudoku.SetCell(currentStep.coordinates, currentStep.value);
+					}*/
 				}
 				else
 				{
@@ -164,9 +206,8 @@ namespace OneSolutionSudoku
 						backtrack = true;
 						break;
 					}
-
 					// Select random coordinates from the availible ones
-					currentStep.coordinates = currentStep.availibleCoordinates[random.Next(currentStep.availibleCoordinates.Count)];
+					currentStep.coordinates = SelectValueToRemove(sudoku, currentStep.availibleCoordinates);
 					currentStep.value = sudoku.GetCell(currentStep.coordinates).value;
 					// Try to remove current step cell
 					bool isDuplicate = false;
@@ -174,7 +215,7 @@ namespace OneSolutionSudoku
 
 					sudoku.SetCell(currentStep.coordinates, 0);
 					sudoku.SetPossibleValuesForCell(currentStep.coordinates);
-					List<int> possibleValues = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+					List<int> possibleValues = sudoku.GetCell(currentStep.coordinates).possibleValues;
 					possibleValues.Remove(solvedSudoku.GetCell(currentStep.coordinates).value);
 					foreach (int startValue in possibleValues)
 					{
@@ -196,6 +237,7 @@ namespace OneSolutionSudoku
 					{
 						// Confirm our step
 						removedCells.Push(currentStep);
+						// UPDATE POSSIBLE VALUES
 						hasValueBeenRemoved = true;
 					}
 				}

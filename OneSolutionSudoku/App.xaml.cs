@@ -21,13 +21,13 @@ namespace OneSolutionSudoku
 		}
         public static App Instance = (App)Application.Current;
 
-		protected override void OnStartup(StartupEventArgs e)
+		/*protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
 			[DllImport("kernel32.dll")]
 			static extern bool AllocConsole();
 			AllocConsole();
-		}
+		}*/
 	}
 
 }

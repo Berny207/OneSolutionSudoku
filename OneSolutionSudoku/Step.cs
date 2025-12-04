@@ -11,21 +11,21 @@ namespace OneSolutionSudoku
 		public Coordinates coordinates;
 		public int value;
 		internal List<int> bannedValues;
-		internal List<Coordinates> affectedCoordinates;
+		internal Multimap<Coordinates, int> affectedCoordinates;
 
 		internal Step(Coordinates coordinates, int value)
 		{
 			this.coordinates = coordinates;
 			this.value = value;
 			this.bannedValues = new List<int>();
-			this.affectedCoordinates = new List<Coordinates>();
+			this.affectedCoordinates = new Multimap<Coordinates, int>();
 		}
 		internal Step()
 		{
 			this.coordinates = new Coordinates(0, 0);
 			this.value = -1;
 			this.bannedValues = new List<int>();
-			this.affectedCoordinates = new List<Coordinates>();
+			this.affectedCoordinates = new Multimap<Coordinates, int>();
 		}
 	}
 	internal class Elimination_Step

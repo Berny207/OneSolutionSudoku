@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.Pkcs;
 using System.Text;
@@ -9,6 +10,14 @@ namespace OneSolutionSudoku
 	internal class CSPAlgorithms
 	{
 		static Random random = new Random();
+
+		/// <summary>
+		/// Returns list of least constrained values
+		/// </summary>
+		/// <param name="sudoku"></param>
+		/// <param name="selectedCoordinates"></param>
+		/// <param name="bannedValues"></param>
+		/// <returns></returns>
 		public static List<int> GetLeastConstrainedValues(Sudoku sudoku, Coordinates selectedCoordinates, List<int> bannedValues)
 		{
 			int minimalConstraintValue = 20;
@@ -34,6 +43,11 @@ namespace OneSolutionSudoku
 			}
 			return candidateValues;
 		}
+		/// <summary>
+		/// Returns list of variables with least possible numbers
+		/// </summary>
+		/// <param name="sudoku"></param>
+		/// <returns></returns>
 		public static List<Coordinates> GetMostConstrainedVariables(Sudoku sudoku)
 		{
 			List<Coordinates> mostConstrainedCells = new List<Coordinates>();
@@ -61,38 +75,80 @@ namespace OneSolutionSudoku
 			}
 			return mostConstrainedCells;
 		}
+		internal static (bool, Multimap<Coordinates, int>) AssignValue(Sudoku sudoku, Coordinates coordinates, int value)
+		{
+			(bool result, Multimap<Coordinates, int> updatedCoordinates) = EnforceArcConsistency(sudoku, coordinates, value);
+			if (!result)
+			{
+				foreach(var kvp in updatedCoordinates.data)
+				{
+					foreach (int affectedValue in kvp.Value)
+					{
+						sudoku.GetCell(kvp.Key).possibleValues.Add(affectedValue);
+					}
+				}
+				return (false, updatedCoordinates);
+			}
+
+			sudoku.SetCell(coordinates, value);
+
+			return (true, updatedCoordinates);
+		}
 		/// <summary>
-		/// Tries to assign value to cell with lookahead<br/>
-		/// If failed, reverts assignment and returns false and nill<br/>
-		/// If succeeded, returns true and list of affected coordinates<br/>
+		/// Recursively enforced arc consistency on cells
 		/// </summary>
 		/// <param name="sudoku"></param>
 		/// <param name="coordinates"></param>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		internal static (bool, List<Coordinates>?) AssignValueWithLookahead(Sudoku sudoku, Coordinates coordinates, int value)
+		internal static (bool, Multimap<Coordinates, int>) EnforceArcConsistency(Sudoku sudoku, Coordinates coordinates, int value)
 		{
-			sudoku.SetCell(coordinates, value);
-			List<Coordinates> toUpdate = sudoku.FilterOutFullCells(sudoku.GetSpaceNeighbours(coordinates));
-			List<Coordinates> updatedCellCoordinates = new List<Coordinates>();
-			foreach (Coordinates updatingCoordinates in toUpdate)
+			Dictionary<Coordinates, int> cellsToBeEnforcedAgain = new Dictionary<Coordinates, int>();
+			Multimap<Coordinates, int> updatedCoordinates = new Multimap<Coordinates, int>();
+			List<Coordinates> listOfCoordinates = sudoku.GetSpaceNeighbours(coordinates);
+			foreach (Coordinates updatingCoordinates in listOfCoordinates)
 			{
-				Cell cell = sudoku.GetCell(updatingCoordinates);
-				if (cell.possibleValues.Contains(value))
+				if(sudoku.GetCell(updatingCoordinates).value != 0)
 				{
-					cell.possibleValues.Remove(value);
-					updatedCellCoordinates.Add(updatingCoordinates);
+					continue;
 				}
-				if (cell.possibleValues.Count == 0)
+				List<int> cellPossibleValues = sudoku.GetCell(updatingCoordinates).possibleValues;
+				if (cellPossibleValues.Contains(value))
 				{
-					// Assigment failed, revert changes
-					Step returnStep = new Step(coordinates, value);
-					returnStep.affectedCoordinates = updatedCellCoordinates;
-					sudoku.revertAssignment(returnStep);
-					return (false, null);
+					updatedCoordinates.Add(updatingCoordinates, value);
+					cellPossibleValues.Remove(value);
+					if (cellPossibleValues.Count == 0)
+					{
+						return (false, updatedCoordinates);
+						// We're fucked
+					}
+					if (cellPossibleValues.Count == 1)
+					{
+						// Enforce arc consistency again
+						cellsToBeEnforcedAgain.Add(updatingCoordinates, cellPossibleValues[0]);
+					}
 				}
 			}
-			return (true, updatedCellCoordinates);
+			if(cellsToBeEnforcedAgain.Count > 0)
+			{
+				foreach (Coordinates coordinatesToEnforce in cellsToBeEnforcedAgain.Keys)
+				{
+					(bool result, Multimap<Coordinates, int> additionalUdpatedCoordinates) = EnforceArcConsistency(sudoku, coordinatesToEnforce, cellsToBeEnforcedAgain[coordinatesToEnforce]);
+					// Merge additional updated coordinates
+					foreach(var kvp in additionalUdpatedCoordinates.data)
+					{
+						foreach (int affectedValue in kvp.Value)
+						{
+							updatedCoordinates.Add(kvp.Key, affectedValue);
+						}
+					}
+					if (!result)
+					{
+						return(false, updatedCoordinates);
+					}
+				}
+			}
+			return (true, updatedCoordinates);
 		}
 	}
 }

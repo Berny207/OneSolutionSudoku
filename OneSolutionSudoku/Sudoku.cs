@@ -302,9 +302,12 @@ namespace OneSolutionSudoku
 		public void revertAssignment(Step step)
 		{
 			this.grid[step.coordinates.row, step.coordinates.column].value = 0;
-			foreach (Coordinates updatedCellCoordinate in step.affectedCoordinates)
+			foreach (var kvp in step.affectedCoordinates.data)
 			{
-				this.GetCell(updatedCellCoordinate).possibleValues.Add(step.value);
+				foreach (int affectedValue in kvp.Value)
+				{
+					this.GetCell(kvp.Key).possibleValues.Add(affectedValue);
+				}
 			}
 		}
 		/// <summary>
