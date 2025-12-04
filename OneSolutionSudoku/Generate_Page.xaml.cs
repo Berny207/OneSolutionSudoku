@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -31,11 +32,14 @@ namespace OneSolutionSudoku
 		}
 		private void Button_Back_Click(object sender, RoutedEventArgs e)
 		{
+			_cts.Cancel();
 			NavigationService.Navigate(new Main_Page());
 		}
 		string InvalidInput;
 		string IncorrectInput;
-		private void Button_Generate_Click(object sender, RoutedEventArgs e)
+		private CancellationTokenSource _cts;
+
+		private async void Button_Generate_Click(object sender, RoutedEventArgs e)
 		{
 			int fullCellAmount = 0;
 			try
@@ -53,7 +57,17 @@ namespace OneSolutionSudoku
 				System.Windows.MessageBox.Show(InvalidInput);
 				return;
 			}
-
+			_cts = new CancellationTokenSource();
+			Sudoku generatedSudoku = new Sudoku();
+			try
+			{
+				generatedSudoku = await Task.Run(() => SudokuPuncturer.GenerateSudoku(81 - fullCellAmount, _cts.Token));
+			}
+			catch
+			{
+				System.Windows.MessageBox.Show("Cancelled");
+				return;
+			}
 			SaveFileDialog dialog = new SaveFileDialog();
 			dialog.InitialDirectory = SudokuSavingHandler.saveLocation;
 			dialog.Filter = "Text files (*.txt)|*.txt";
@@ -61,8 +75,12 @@ namespace OneSolutionSudoku
 			if (result == DialogResult.OK)
 			{
 				string selectedPath = dialog.FileName;
-				SudokuSavingHandler.SaveSudoku(SudokuPuncturer.GenerateSudoku(81-fullCellAmount), selectedPath);
+				SudokuSavingHandler.SaveSudoku(generatedSudoku, selectedPath);
 			}
+		}
+		private void Button_Stop_Click(object sender, RoutedEventArgs e)
+		{
+			_cts.Cancel();
 		}
 		private static readonly Regex number_regex = new Regex("[^0-9]");
 		private static bool IsTextNumerical(string text)

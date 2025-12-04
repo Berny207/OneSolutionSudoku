@@ -157,7 +157,7 @@ namespace OneSolutionSudoku
 			return selection[random.Next(selection.Count)];
 		}
 
-		public static Sudoku GenerateSudoku(int missingCells)
+		public static Sudoku GenerateSudoku(int missingCells, CancellationToken token)
 		{
 			Sudoku sudoku = new Sudoku();
 			SolveSudoku(sudoku);
@@ -169,6 +169,7 @@ namespace OneSolutionSudoku
 			// Select random cell to remove
 			while (missingCells >= removedCells.Count)
 			{
+				token.ThrowIfCancellationRequested();
 				Elimination_Step currentStep = new Elimination_Step();
 				if (backtrack == true)
 				{
