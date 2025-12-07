@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Button = System.Windows.Controls.Button;
 using Color = System.Windows.Media.Color;
+using Label = System.Windows.Controls.Label;
 
 namespace OneSolutionSudoku
 {
@@ -30,6 +32,7 @@ namespace OneSolutionSudoku
             InitializeComponent();
             DataContext = this;
 			OneSolutionSudoku.languageHandler.ChangeLanguage += OnChangeLanguage;
+			// this.Label_DefaultPath.Content = SudokuSavingHandler.saveLocation;
 			languageHandler.SetLanguage();
 		}
 		public List<string> Languages { get; set; } = new List<string>();
@@ -87,6 +90,8 @@ namespace OneSolutionSudoku
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
+		/// 
+
 		private void Button_FolderSelect_Click(object sender, RoutedEventArgs e)
 		{
 			FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -97,6 +102,7 @@ namespace OneSolutionSudoku
 				string selectedPath = dialog.SelectedPath;
 				SudokuSavingHandler.saveLocation = selectedPath;
 				settingsHandler.SaveSettings();
+				// this.Label_DefaultPath.Content = selectedPath;
 			}
 		}
 		public Color boundPrimaryColor { get; set; } = colorHandler.PrimaryColor.Color;
@@ -120,9 +126,9 @@ namespace OneSolutionSudoku
 			foreach (string key in languageKorpus.Keys)
 			{
 				var findMeResult = this.FindName(key);
-				if (findMeResult is TextBlock textBlock)
+				if (findMeResult is System.Windows.Controls.Label label)
 				{
-					textBlock.Text = languageKorpus[key];
+					label.Content = languageKorpus[key];
 				}
 				else if (findMeResult is Button button)
 				{

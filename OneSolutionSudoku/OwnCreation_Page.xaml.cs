@@ -173,6 +173,21 @@ namespace OneSolutionSudoku
 			}
 			MessageBox.Show(CheckMessageOneSolution);
 		}
+
+		private void Button_Solve_Click(object sender, RoutedEventArgs e)
+		{
+			userSudoku = SaveSudoku(userSudoku);
+			// Is it a valid Sudoku?
+			bool isValid = userSudoku.IsValid();
+			if (!isValid)
+			{
+				MessageBox.Show(CheckMessageInvalid);
+				return;
+			}
+
+			SudokuPuncturer.SolveSudoku(userSudoku);
+			LoadSudoku(userSudoku);
+		}
 		public string sudokuFileNameInput { get; set; }
 		internal Sudoku userSudoku { get; set; } = new Sudoku();
 		private void Button_Save_Click(object sender, RoutedEventArgs e)

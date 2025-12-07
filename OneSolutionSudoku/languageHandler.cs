@@ -16,20 +16,20 @@ namespace OneSolutionSudoku
 
 		private static readonly Dictionary<string, string> czechLanguage = new Dictionary<string, string>
 		{
-			{"TextBox_Title", "Generátor Sudoku s jedním řešením"},
+			{"Label_Title", "Sudoku App"},
 			{"Button_End", "Opustit"},
 			{"Button_OwnCreation", "Vlastní tvorba"},
 			{"Button_Generation", "Generovat"},
 			{"Button_Options", "Možnosti"},
-			{"TextBlock_ColorsSelection", "Barvy"},
-			{"TextBlock_LanguageSelection", "Jazyk"},
+			{"Label_ColorsSelection", "Barvy"},
+			{"Label_LanguageSelection", "Jazyk"},
 			{"Button_Confirm", "Potvrdit"},
 			{"Button_Back", "Zpět"},
-			{"Button_FolderSelect", "Vyber úložiště"},
+			{"Button_FolderSelect", "Vyber základní složku"},
 			{"Button_Defaults", "Původní nastavení"},
 			{"Button_Generate", "Generovat"},
-			{"TextBlock_FullCellAmountLabel", "Počet vyplněných polí"},
-			{"TextBlock_SudokuNameLabel", "Název Sudoku souboru"},
+			{"Label_FullCellAmountLabel", "Počet vyplněných polí"},
+			{"Label_SudokuNameLabel", "Název Sudoku souboru"},
 			{"Button_Check", "Zkontrolovat"},
 			{"Button_Save", "Uložit"},
 			{"Button_Load", "Načti" },
@@ -40,25 +40,30 @@ namespace OneSolutionSudoku
 			{"Message_SudokuCheck_Invalid", "Sudoku není validní"},
 			{"Message_SudokuCheck_NoSolution", "Sudoku nemá řešení" },
 			{"Button_Stop", "Zastavit"},
-			{"Alert_Cancelled_Input", "Generace zastavena"}
+			{"Alert_Cancelled_Input", "Generace zastavena"},
+			{"Button_Solve", "Vyřešit"},
+			{"Label_PrimaryColor", "Primární barva" },
+			{"Label_SecondaryColor", "Interakční barva" },
+			{"Label_BackgroundColor", "Barva pozadí" },
+			{"Label_DefaultPathLocation", "Výchozí složka úložiště"}
 
 		};
 		private static readonly Dictionary<string, string> englishLanguage = new Dictionary<string, string>
 		{
-			{"TextBox_Title", "One Solution Sudoku Generator"},
+			{"Label_Title", "Sudoku App"},
 			{"Button_End", "Quit"},
 			{"Button_OwnCreation", "Create"},
 			{"Button_Generation", "Generate"},
 			{"Button_Options", "Options"},
-			{"TextBlock_ColorsSelection", "Colors"},
-			{"TextBlock_LanguageSelection", "Language"},
+			{"Label_ColorsSelection", "Colors"},
+			{"Label_LanguageSelection", "Language"},
 			{"Button_Confirm", "Confirm"},
 			{"Button_Back", "Back"},
-			{"Button_FolderSelect", "Select save location"},
+			{"Button_FolderSelect", "Select default folder"},
 			{"Button_Defaults", "Default settings"},
 			{"Button_Generate", "Generate"},
-			{"TextBlock_FullCellAmountLabel", "Amount of full fields"},
-			{"TextBlock_SudokuNameLabel", "Sudoku file name"},
+			{"Label_FullCellAmountLabel", "Amount of full fields"},
+			{"Label_SudokuNameLabel", "Sudoku file name"},
 			{"Button_Check", "Check"},
 			{"Button_Save", "Save"},
 			{"Button_Load", "Load" },
@@ -69,7 +74,12 @@ namespace OneSolutionSudoku
 			{"Message_SudokuCheck_Invalid", "Sudoku is invalid"},
 			{"Message_SudokuCheck_NoSolution", "Sudoku doesn't have solution" },
 			{"Button_Stop", "Stop"},
-			{"Alert_Cancelled_Input", "Generation cancelled"}
+			{"Alert_Cancelled_Input", "Generation cancelled"},
+			{"Button_Solve", "Solve"},
+			{"Label_PrimaryColor", "Primary color" },
+			{"Label_SecondaryColor", "Interactive color" },
+			{"Label_BackgroundColor", "Background color" },
+			{"Label_DefaultPathLocation", "Default save folder location"}
 		};
 		public static readonly Dictionary<string, string> languageNames = new Dictionary<string, string>
 		{

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Button = System.Windows.Controls.Button;
+using Label = System.Windows.Controls.Label;
 using WinForms = System.Windows.Forms;
 
 namespace OneSolutionSudoku
@@ -53,9 +54,9 @@ namespace OneSolutionSudoku
 			foreach (string key in languageKorpus.Keys)
 			{
 				var findMeResult = this.FindName(key);
-				if (findMeResult is TextBlock textBlock)
+				if (findMeResult is Label label)
 				{
-					textBlock.Text = languageKorpus[key];
+					label.Content = languageKorpus[key];
 				}
 				else if (findMeResult is Button button)
 				{ 
