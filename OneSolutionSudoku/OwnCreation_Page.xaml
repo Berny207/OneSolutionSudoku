@@ -18,8 +18,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <UniformGrid x:Name="SudokuGrid" Grid.ColumnSpan="4" Margin="10, 10, 10, 10" Grid.Row="0">
-        </UniformGrid>
+        <Viewbox Stretch="Uniform" Grid.ColumnSpan="4" Margin="10, 10, 10, 10" Grid.Row="0">
+            <UniformGrid x:Name="SudokuGrid">
+            </UniformGrid>
+        </Viewbox>
         <Button Name="Button_Back" Click="Button_Back_Click" Grid.Row="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
         <Button Name="Button_Save" Click="Button_Save_Click" Grid.Row="1" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
         <Button Name="Button_Load" Click="Button_Load_Click" Grid.Row="1" Grid.Column="2" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>

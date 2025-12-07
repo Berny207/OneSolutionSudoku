@@ -39,7 +39,8 @@ namespace OneSolutionSudoku
 			{"Message_SudokuCheck_MoreSolutions", "Sudoku má více než jedno řešení" },
 			{"Message_SudokuCheck_Invalid", "Sudoku není validní"},
 			{"Message_SudokuCheck_NoSolution", "Sudoku nemá řešení" },
-			{"Button_Stop", "Zastavit"}
+			{"Button_Stop", "Zastavit"},
+			{"Alert_Cancelled_Input", "Generace zastavena"}
 
 		};
 		private static readonly Dictionary<string, string> englishLanguage = new Dictionary<string, string>
@@ -67,7 +68,8 @@ namespace OneSolutionSudoku
 			{"Message_SudokuCheck_MoreSolutions", "Sudoku is not unique" },
 			{"Message_SudokuCheck_Invalid", "Sudoku is invalid"},
 			{"Message_SudokuCheck_NoSolution", "Sudoku doesn't have solution" },
-			{"Button_Stop", "Stop"}
+			{"Button_Stop", "Stop"},
+			{"Alert_Cancelled_Input", "Generation cancelled"}
 		};
 		public static readonly Dictionary<string, string> languageNames = new Dictionary<string, string>
 		{

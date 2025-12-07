@@ -29,10 +29,10 @@
         <Button Name="Button_Confirm" Click="Button_Confirm_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2"/>
         <Button Name="Button_Defaults" Click="Button_Defaults_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"/>
         <Button Name="Button_Back" Click="Button_Back_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="4"/>
-        <ComboBox Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding boundLanguage, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"></ComboBox>
-        <xctk:ColorPicker Name="primaryColorPicker" SelectedColor="{Binding boundPrimaryColor, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Margin="70, 20, 70, 20"/>
-        <xctk:ColorPicker Name="secondaryColorPicker" SelectedColor="{Binding boundSecondaryColor, Mode=TwoWay}" Grid.Row="0" Grid.Column="2" Margin="70, 20, 70, 20"/>
-        <xctk:ColorPicker Name="backgroundColorPicker" SelectedColor="{Binding boundBackgroundColor, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" Margin="70, 20, 70, 20"/>
+        <ComboBox Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding boundLanguage, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Padding="{StaticResource ComboBoxPadding}" Margin="{StaticResource ButtonMargin}"/>
+        <xctk:ColorPicker Name="primaryColorPicker" SelectedColor="{Binding boundPrimaryColor, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Margin="70, 20, 70, 20" Padding="{StaticResource ButtonPadding}"/>
+        <xctk:ColorPicker Name="secondaryColorPicker" SelectedColor="{Binding boundSecondaryColor, Mode=TwoWay}" Grid.Row="0" Grid.Column="2" Margin="70, 20, 70, 20" Padding="{StaticResource ButtonPadding}"/>
+        <xctk:ColorPicker Name="backgroundColorPicker" SelectedColor="{Binding boundBackgroundColor, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" Margin="70, 20, 70, 20" Padding="{StaticResource ButtonPadding}"/>
         <Button Name="Button_FolderSelect" Click="Button_FolderSelect_Click" Style="{StaticResource RoundedButton}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
     </Grid>
 </Page>

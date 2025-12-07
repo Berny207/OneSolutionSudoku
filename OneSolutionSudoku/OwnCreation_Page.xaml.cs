@@ -51,7 +51,10 @@ namespace OneSolutionSudoku
 						BorderBrush = System.Windows.Media.Brushes.Black,
 						BorderThickness = new Thickness((column % 3 == 0 ? 1 : 0) * BorderThickness, (row % 3 == 0 ? 1 : 0) * BorderThickness, ((column + 1) % 3 == 0 ? 1 : 0) * BorderThickness, ((row + 1) % 3 == 0 ? 1 : 0) * BorderThickness),
 						//BorderThickness = new Thickness((column % 3 == 0 ? 1 : 0) * BorderThickness, 0, 0, 0),
-						Margin = new Thickness(0)
+						Margin = new Thickness(0),
+						Width=50,
+						Height=50
+						
 					};
 
 					TextBox tb = new TextBox

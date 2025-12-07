@@ -23,6 +23,7 @@ namespace OneSolutionSudoku
     /// </summary>
     public partial class Main_Page : Page, Ipage
     {
+		MainWindow mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
 		static Random random = new Random();
 		public Main_Page()
         {
@@ -36,7 +37,7 @@ namespace OneSolutionSudoku
 		}
 		private void Button_OwnCreation_Click(object sender, RoutedEventArgs e)
 		{
-			NavigationService.Navigate(new OwnCreation_Page());
+			mainWindow.MainFrame.Navigate(new OwnCreation_Page());
 		}
 		private void Button_Generate_Click(object sender, RoutedEventArgs e)
 		{

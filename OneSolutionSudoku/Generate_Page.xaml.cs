@@ -30,13 +30,21 @@ namespace OneSolutionSudoku
 			languageHandler.ChangeLanguage += OnChangeLanguage;
 			languageHandler.SetLanguage();
 		}
+		private void cancelGeneration()
+		{
+			if (_cts != null)
+			{
+				_cts.Cancel();
+			}
+		}
 		private void Button_Back_Click(object sender, RoutedEventArgs e)
 		{
-			_cts.Cancel();
+			cancelGeneration();
 			NavigationService.Navigate(new Main_Page());
 		}
 		string InvalidInput;
 		string IncorrectInput;
+		string cancelledInput;
 		private CancellationTokenSource _cts;
 
 		private async void Button_Generate_Click(object sender, RoutedEventArgs e)
@@ -65,7 +73,7 @@ namespace OneSolutionSudoku
 			}
 			catch
 			{
-				System.Windows.MessageBox.Show("Cancelled");
+				System.Windows.MessageBox.Show(cancelledInput);
 				return;
 			}
 			SaveFileDialog dialog = new SaveFileDialog();
@@ -80,7 +88,7 @@ namespace OneSolutionSudoku
 		}
 		private void Button_Stop_Click(object sender, RoutedEventArgs e)
 		{
-			_cts.Cancel();
+			cancelGeneration();
 		}
 		private static readonly Regex number_regex = new Regex("[^0-9]");
 		private static bool IsTextNumerical(string text)
@@ -104,6 +112,10 @@ namespace OneSolutionSudoku
 				if(key == "Alert_Incorrect_Input")
 				{
 					IncorrectInput = languageKorpus[key];
+				}
+				if(key == "Alert_Cancelled_Input")
+				{
+					cancelledInput = languageKorpus[key];
 				}
 				var findMeResult = this.FindName(key);
 				if (findMeResult is TextBlock textBlock)

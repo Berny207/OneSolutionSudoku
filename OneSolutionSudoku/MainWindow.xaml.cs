@@ -16,6 +16,8 @@ namespace OneSolutionSudoku
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Frame MainFramereference => MainFrame;
+
         public MainWindow()
         {
             InitializeComponent();

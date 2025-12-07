@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:OneSolutionSudoku" 
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="SudokuGen" Height="544" Width="800">
+        Title="SudokuGenerator" Height="544" Width="800"
+        Background="{DynamicResource BackgroundColor}">
+    <Viewbox Stretch="Uniform">
     <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Background="{DynamicResource BackgroundColor}"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" x:FieldModifier="public"/>
     </Grid>
+    </Viewbox>
 </Window>
