@@ -75,21 +75,42 @@
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="50,20"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{DynamicResource PrimaryColor}"
-                        BorderThickness="0"
-                        CornerRadius="20"
-                        Padding="50, 20, 50, 20"
-                        Margin="{StaticResource ButtonMargin}">
-                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                        <Border
+                    x:Name="Border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{DynamicResource PrimaryColor}"
+                    CornerRadius="20"
+                    Margin="{StaticResource ButtonMargin}">
+
+                            <!-- REQUIRED for TextBox -->
+                            <ScrollViewer
+                        x:Name="PART_ContentHost"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch"/>
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryColor}"/>
+                                <Setter TargetName="Border"
+                                Property="Background"
+                                Value="{DynamicResource SecondaryColor}"/>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border"
+                                Property="Background"
+                                Value="{DynamicResource SecondaryColor}"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border"
+                                Property="Opacity"
+                                Value="0.5"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
