@@ -5,6 +5,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace OneSolutionSudoku
@@ -42,7 +43,7 @@ namespace OneSolutionSudoku
             StreamReader reader = new StreamReader(fullPath);
 			string SudokuString = reader.ReadToEnd();
 			reader.Close();
-            return StringToSudoku(SudokuString);
+			return StringToSudoku(SudokuString);
 		}
 
         public static Sudoku StringToSudoku(string stringDoku)
@@ -59,6 +60,10 @@ namespace OneSolutionSudoku
                 else
                 {
                     Coordinates coordinates = new Coordinates(i/9, i%9);
+                    if(!Regex.IsMatch(part, @"^[0-9]+$"))
+                    {
+                        return null;
+                    }
                     sudoku.SetCell(coordinates, int.Parse(part));
                     i++;
                 }

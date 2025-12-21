@@ -45,7 +45,8 @@ namespace OneSolutionSudoku
 			{"Label_PrimaryColor", "Primární barva" },
 			{"Label_SecondaryColor", "Interakční barva" },
 			{"Label_BackgroundColor", "Barva pozadí" },
-			{"Label_DefaultPathLocation", "Výchozí složka úložiště"}
+			{"Label_DefaultPathLocation", "Výchozí složka úložiště"},
+			{"Message_LoadFile_Failed", "Nemohl jsem načíst data z vybraného souboru"}
 
 		};
 		private static readonly Dictionary<string, string> englishLanguage = new Dictionary<string, string>
@@ -79,7 +80,8 @@ namespace OneSolutionSudoku
 			{"Label_PrimaryColor", "Primary color" },
 			{"Label_SecondaryColor", "Interactive color" },
 			{"Label_BackgroundColor", "Background color" },
-			{"Label_DefaultPathLocation", "Default save folder location"}
+			{"Label_DefaultPathLocation", "Default save folder location"},
+			{"Message_LoadFile_Failed", "Couldn't load data from selected file"}
 		};
 		public static readonly Dictionary<string, string> languageNames = new Dictionary<string, string>
 		{

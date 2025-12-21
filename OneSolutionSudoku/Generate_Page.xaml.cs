@@ -70,7 +70,7 @@ namespace OneSolutionSudoku
 			Sudoku generatedSudoku = new Sudoku();
 			try
 			{
-				generatedSudoku = await Task.Run(() => SudokuPuncturer.GenerateSudoku(81 - fullCellAmount, _cts.Token));
+				generatedSudoku = await Task.Run(() => MainAlgoritmhs.GenerateSudoku(81 - fullCellAmount, _cts.Token));
 			}
 			catch
 			{

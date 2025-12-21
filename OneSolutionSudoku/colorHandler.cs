@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
@@ -23,7 +24,7 @@ namespace OneSolutionSudoku
 			string loadedHexPrimaryColor = settingsHandler.LoadSetting("Primary color");
 			string loadedHexSecondaryColor = settingsHandler.LoadSetting("Secondary color");
 			string loadedHexBackgroundColor = settingsHandler.LoadSetting("Background color");
-			if (loadedHexPrimaryColor != null)
+			if (Regex.IsMatch(loadedHexPrimaryColor, @"^#[0-9A-Fa-f]{6}$"))
 			{
 				colorHandler.PrimaryColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(loadedHexPrimaryColor));
 			}
@@ -31,7 +32,7 @@ namespace OneSolutionSudoku
 			{
 				colorHandler.PrimaryColor = defaultPrimaryColor;
 			}
-			if (loadedHexSecondaryColor != null)
+			if (Regex.IsMatch(loadedHexSecondaryColor, @"^#[0-9A-Fa-f]{6}$"))
 			{
 				colorHandler.SecondaryColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(loadedHexSecondaryColor));
 			}
@@ -39,7 +40,7 @@ namespace OneSolutionSudoku
 			{
 				colorHandler.SecondaryColor = defaultSecondaryColor;
 			}
-			if (loadedHexBackgroundColor != null)
+			if (Regex.IsMatch(loadedHexBackgroundColor, @"^#[0-9A-Fa-f]{6}$"))
 			{
 				colorHandler.BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(loadedHexBackgroundColor));
 			}

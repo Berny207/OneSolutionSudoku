@@ -36,6 +36,7 @@ namespace OneSolutionSudoku
 		static string CheckMessageMoreSolution = "";
 		static string CheckMessageInvalid = "";
 		static string CheckMessageNoSolution = "";
+		static string LoadFileFailed = "";
 		public OwnCreation_Page()
 		{
 			InitializeComponent();
@@ -74,7 +75,12 @@ namespace OneSolutionSudoku
 				}
 			}
 		}
-		private static void LoadSudoku(Sudoku sudoku)
+		/// <summary>
+		/// only updates front-end sudoku. Doesn't call SudokuSavingHandler
+		/// </summary>
+		/// <param name="sudoku"></param>
+		/// <returns></returns>
+		private static bool LoadSudoku(Sudoku sudoku)
 		{
 			for (int row = 0; row < 9; row++)
 			{
@@ -97,11 +103,19 @@ namespace OneSolutionSudoku
 						continue;
 					}
 					MessageBox.Show(IncorrectInput);
+					return false;
 				}
 			}
+			return true;
 		}
-		private static Sudoku SaveSudoku(Sudoku sudoku)
+		/// <summary>
+		/// only updates back-end sudoku value. Doesn't call SudokuSavingHandler
+		/// </summary>
+		/// <param name="sudoku"></param>
+		/// <returns></returns>
+		private static Sudoku SaveSudoku()
 		{
+			Sudoku sudoku = new Sudoku();
 			for (int row = 0; row < 9; row++)
 			{
 				for (int column = 0; column < 9; column++)
@@ -118,6 +132,7 @@ namespace OneSolutionSudoku
 					catch 
 					{
 						MessageBox.Show(IncorrectInput);
+						return null;
 					}
 				}
 			}
@@ -125,7 +140,11 @@ namespace OneSolutionSudoku
 		}
 		private void Button_Check_Click(object sender, RoutedEventArgs e)
 		{
-			userSudoku = SaveSudoku(userSudoku);
+			userSudoku = SaveSudoku();
+			if (userSudoku == null)
+			{
+				return;
+			}
 			// Is it a valid Sudoku?
 			bool isValid = userSudoku.IsValid();
 			if (!isValid)
@@ -136,7 +155,7 @@ namespace OneSolutionSudoku
 
 			// Does it have A solution?
 			Sudoku solvedSudoku = userSudoku.Clone();
-			bool isSolvable = SudokuPuncturer.SolveSudoku(solvedSudoku);
+			bool isSolvable = MainAlgoritmhs.SolveSudoku(solvedSudoku);
 			if (!isSolvable)
 			{
 				MessageBox.Show(CheckMessageNoSolution);
@@ -163,7 +182,7 @@ namespace OneSolutionSudoku
 						{
 							continue;
 						}
-						if (SudokuPuncturer.SolveSudoku(cloneDoku))
+						if (MainAlgoritmhs.SolveSudoku(cloneDoku))
 						{
 							MessageBox.Show(CheckMessageMoreSolution);
 							return;
@@ -176,7 +195,11 @@ namespace OneSolutionSudoku
 
 		private void Button_Solve_Click(object sender, RoutedEventArgs e)
 		{
-			userSudoku = SaveSudoku(userSudoku);
+			userSudoku = SaveSudoku();
+			if(userSudoku == null)
+			{
+				return;
+			}
 			// Is it a valid Sudoku?
 			bool isValid = userSudoku.IsValid();
 			if (!isValid)
@@ -185,13 +208,18 @@ namespace OneSolutionSudoku
 				return;
 			}
 
-			SudokuPuncturer.SolveSudoku(userSudoku);
+			MainAlgoritmhs.SolveSudoku(userSudoku);
 			LoadSudoku(userSudoku);
 		}
 		public string sudokuFileNameInput { get; set; }
 		internal Sudoku userSudoku { get; set; } = new Sudoku();
 		private void Button_Save_Click(object sender, RoutedEventArgs e)
 		{
+			userSudoku = SaveSudoku();
+			if (userSudoku == null)
+			{
+				return;
+			}
 			SaveFileDialog dialog = new SaveFileDialog();
 			dialog.InitialDirectory = SudokuSavingHandler.saveLocation;
 			dialog.Filter = "Text files (*.txt)|*.txt";
@@ -199,7 +227,6 @@ namespace OneSolutionSudoku
 			if (result == DialogResult.OK)
 			{
 				string selectedPath = dialog.FileName;
-				userSudoku = SaveSudoku(userSudoku);
 				SudokuSavingHandler.SaveSudoku(userSudoku, selectedPath);
 			}
 		}
@@ -214,7 +241,13 @@ namespace OneSolutionSudoku
 			{
 				string selectedPath = dialog.FileName;
 				userSudoku = SudokuSavingHandler.LoadSudoku(selectedPath);
-				LoadSudoku(userSudoku);
+				if (userSudoku != null) {
+					LoadSudoku(userSudoku);
+				}
+				else
+				{
+					MessageBox.Show(LoadFileFailed);
+				}
 			}
 		}
 		private void Button_Back_Click(object sender, RoutedEventArgs e)
@@ -258,6 +291,11 @@ namespace OneSolutionSudoku
 				{
 					CheckMessageNoSolution = languageKorpus[key];
 				}
+				else if (key == "Message_LoadFile_Failed")
+				{
+					LoadFileFailed = languageKorpus[key];
+				}
+				else
 				if (key == "Alert_Incorrect_Input")
 				{
 					IncorrectInput = languageKorpus[key];

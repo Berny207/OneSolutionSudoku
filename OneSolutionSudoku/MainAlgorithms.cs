@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace OneSolutionSudoku
 {
-	internal class SudokuPuncturer
+	internal class MainAlgoritmhs
 	{
 		static Random random = new Random();
 
@@ -60,19 +60,13 @@ namespace OneSolutionSudoku
 				}
 				else
 				{
-					// Create a new Step
-					List<Coordinates> constrainedVariables = CSPAlgorithms.GetMostConstrainedVariables(sudoku);
-					if(constrainedVariables.Count == 0)
+					if (IsSudokuSolved(sudoku) == true)
 					{
-						// No empty cells left, so it's full
 						return true;
 					}
+					// Create a new Step
+					List<Coordinates> constrainedVariables = CSPAlgorithms.GetMostConstrainedVariables(sudoku);
 					currentStep.coordinates = constrainedVariables[random.Next(constrainedVariables.Count)];
-					if(sudoku.GetCell(currentStep.coordinates).possibleValues.Count == 0 )
-					{
-						// There is an empty cell with 0 possible values.
-						return false;
-					}
 				}
 				backtrack = false;
 				bool isPossibleAssignment = false;
@@ -81,7 +75,7 @@ namespace OneSolutionSudoku
 					// Select least constrained unbanned variable 
 					List<int> possileAssignmentValues = CSPAlgorithms.GetLeastConstrainedValues(sudoku, currentStep.coordinates, currentStep.bannedValues);
 					if (possileAssignmentValues.Count > 0) {
-						currentStep.value = possileAssignmentValues[0];
+						currentStep.value = possileAssignmentValues[random.Next(possileAssignmentValues.Count)];
 					}
 					else
 					{
@@ -105,13 +99,6 @@ namespace OneSolutionSudoku
 				if(backtrack == false)
 				{
 					stepsTaken.Push(currentStep);
-
-					// Check if solved
-
-					if (IsSudokuSolved(sudoku) == true)
-					{
-						return true;
-					}
 				}
 			}
 		}
@@ -127,7 +114,7 @@ namespace OneSolutionSudoku
 				{6, 0},
 				{7, 0},
 				{8, 0},
-				{9, 0 }
+				{9, 0}
 			};
 			;
 			foreach (Coordinates fullCellCoordinate in availibleValues)
@@ -177,6 +164,7 @@ namespace OneSolutionSudoku
 					currentStep.availibleCoordinates.Remove(currentStep.coordinates);
 					sudoku.SetCell(currentStep.coordinates, currentStep.value);
 					// Revert last removed cell, backtrack
+					// Code commented is multi-step backtracking
 					/*for (int i = 0; i < 10; i++)
 					{
 						if(removedCells.Count == 0)
@@ -193,10 +181,9 @@ namespace OneSolutionSudoku
 					currentStep = new Elimination_Step();
 					currentStep.availibleCoordinates = sudoku.GetFullCells();
 				}
-				bool hasValueBeenRemoved = false;
 
 				// Try to remove at least ONE cell
-				while (hasValueBeenRemoved == false)
+				while (true)
 				{
 					// Trying a fresh value, set backtrack to false
 					backtrack = false;
@@ -239,7 +226,7 @@ namespace OneSolutionSudoku
 						// Confirm our step
 						removedCells.Push(currentStep);
 						// UPDATE POSSIBLE VALUES
-						hasValueBeenRemoved = true;
+						break;
 					}
 				}
 			}
