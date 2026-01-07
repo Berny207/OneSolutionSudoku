@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|c:\\users\\janbe\\source\\repos\\onesolutionsudoku\\onesolutionsudoku\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|c:\\users\\janbe\\source\\repos\\onesolutionsudoku\\onesolutionsudoku\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|c:\\users\\janbe\\source\\repos\\onesolutionsudoku\\onesolutionsudoku\\main_page.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|solutionrelative:main_page.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|c:\\users\\janbe\\source\\repos\\onesolutionsudoku\\onesolutionsudoku\\sudokusavinghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|solutionrelative:sudokusavinghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|c:\\users\\janbe\\source\\repos\\onesolutionsudoku\\onesolutionsudoku\\languagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|solutionrelative:languagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|c:\\users\\janbe\\source\\repos\\onesolutionsudoku\\onesolutionsudoku\\main_page.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|solutionrelative:main_page.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{87BF7710-1F53-4CB0-9EAF-8B804743637A}|OneSolutionSudoku.csproj|c:\\users\\janbe\\source\\repos\\onesolutionsudoku\\onesolutionsudoku\\colorhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,11 +50,11 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "colorHandler.cs",
               "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\colorHandler.cs",
               "RelativeDocumentMoniker": "colorHandler.cs",
@@ -58,21 +66,48 @@
               "IsPinned": true
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SudokuSavingHandler.cs",
-              "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\SudokuSavingHandler.cs",
-              "RelativeDocumentMoniker": "SudokuSavingHandler.cs",
-              "ToolTip": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\SudokuSavingHandler.cs",
-              "RelativeToolTip": "SudokuSavingHandler.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAwEAAAAAkAAAAAAAAAA==",
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-21T14:34:42.898Z",
+              "WhenOpened": "2025-12-21T15:09:52.871Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-21T15:09:29.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SudokuSavingHandler.cs",
+              "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\SudokuSavingHandler.cs",
+              "RelativeDocumentMoniker": "SudokuSavingHandler.cs",
+              "ToolTip": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\SudokuSavingHandler.cs",
+              "RelativeToolTip": "SudokuSavingHandler.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAwwEkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T14:34:42.898Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "OwnCreation_Page.xaml.cs",
               "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\OwnCreation_Page.xaml.cs",
               "RelativeDocumentMoniker": "OwnCreation_Page.xaml.cs",
@@ -80,16 +115,11 @@
               "RelativeToolTip": "OwnCreation_Page.xaml.cs",
               "ViewState": "AgIAAOAAAAAAAAAAAAAAwFIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-21T14:28:36.189Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+              "WhenOpened": "2025-12-21T14:28:36.189Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Options_Page.xaml.cs",
               "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\Options_Page.xaml.cs",
               "RelativeDocumentMoniker": "Options_Page.xaml.cs",
@@ -101,7 +131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Main_Page.xaml.cs",
               "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\Main_Page.xaml.cs",
               "RelativeDocumentMoniker": "Main_Page.xaml.cs",
@@ -109,12 +139,11 @@
               "RelativeToolTip": "Main_Page.xaml.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAD4vyQAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T20:24:47.189Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-07T20:24:47.189Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "languageHandler.cs",
               "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\languageHandler.cs",
               "RelativeDocumentMoniker": "languageHandler.cs",
@@ -122,12 +151,11 @@
               "RelativeToolTip": "languageHandler.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAkwDAAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T19:14:56.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-07T19:14:56.032Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\App.xaml",
               "RelativeDocumentMoniker": "App.xaml",
@@ -138,7 +166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "Main_Page.xaml",
               "DocumentMoniker": "C:\\Users\\janbe\\source\\repos\\OneSolutionSudoku\\OneSolutionSudoku\\Main_Page.xaml",
               "RelativeDocumentMoniker": "Main_Page.xaml",
