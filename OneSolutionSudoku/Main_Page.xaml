@@ -17,10 +17,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
         <Label Name="Label_Title" Style="{StaticResource DefaultLabel}" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Black" Grid.Row="0"/>
-            <Button Name="Button_Generation" Click="Button_Generate_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"/>
-            <Button Name="Button_OwnCreation" Click="Button_OwnCreation_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
-            <Button Name="Button_Options" Click="Button_Options_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="3"/>
-            <Button Name="Button_End" Click="Button_End_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="4"/>
+            <Button Name="Button_Generation" Click="ButtonGenerateClick" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"/>
+            <Button Name="Button_OwnCreation" Click="ButtonOwnCreationClick" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
+            <Button Name="Button_Options" Click="ButtonOptionsClick" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="3"/>
+            <Button Name="Button_End" Click="ButtonEndClick" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="4"/>
     </Grid>
     </Viewbox>
 </Page>

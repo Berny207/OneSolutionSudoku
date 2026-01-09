@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Button = System.Windows.Controls.Button;
 using Label = System.Windows.Controls.Label;
 
@@ -22,7 +11,7 @@ namespace OneSolutionSudoku
 	/// <summary>
 	/// Interaction logic for Generate_Page.xaml
 	/// </summary>
-	public partial class Generate_Page : Page, Ipage
+	public partial class Generate_Page : Page, IPage
 	{
 		public Generate_Page()
 		{
@@ -38,7 +27,7 @@ namespace OneSolutionSudoku
 				_cts.Cancel();
 			}
 		}
-		private void Button_Back_Click(object sender, RoutedEventArgs e)
+		private void ButtonBackCLick(object sender, RoutedEventArgs e)
 		{
 			cancelGeneration();
 			NavigationService.Navigate(new Main_Page());
@@ -48,7 +37,7 @@ namespace OneSolutionSudoku
 		string cancelledInput;
 		private CancellationTokenSource _cts;
 
-		private async void Button_Generate_Click(object sender, RoutedEventArgs e)
+		private async void ButtonGenerateClick(object sender, RoutedEventArgs e)
 		{
 			int fullCellAmount = 0;
 			try
@@ -87,7 +76,7 @@ namespace OneSolutionSudoku
 				SudokuSavingHandler.SaveSudoku(generatedSudoku, selectedPath);
 			}
 		}
-		private void Button_Stop_Click(object sender, RoutedEventArgs e)
+		private void ButtonStopClick(object sender, RoutedEventArgs e)
 		{
 			cancelGeneration();
 		}
@@ -96,14 +85,14 @@ namespace OneSolutionSudoku
 		{
 			return number_regex.IsMatch(text);
 		}
-		private void Preview_Text_Input(object sender, TextCompositionEventArgs e)
+		private void CheckTextInput(object sender, TextCompositionEventArgs e)
 		{
 			e.Handled = IsTextNumerical(e.Text);
 		}
 		public string fullCellAmountInput { get; set; }
 		public void OnChangeLanguage(object sender, string selectedLanguague)
 		{
-			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.languages[selectedLanguague];
+			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.LanguageKorpuses[selectedLanguague];
 			foreach (string key in languageKorpus.Keys)
 			{
 				if(key == "Alert_InvalidGeneration_Input")

@@ -21,9 +21,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Name="Label_FullCellAmountLabel" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DefaultLabel}"/>
-        <TextBox Name="TextBox_FullCellAmount" Text="{Binding fullCellAmountInput}" PreviewTextInput="Preview_Text_Input" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DefaultTextBox}"/>
-        <Button Name="Button_Generate" Click="Button_Generate_Click" Grid.Row="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Name="Button_Stop" Click="Button_Stop_Click" Grid.Row="1" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Name="Button_Back" Click="Button_Back_Click" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Name="TextBox_FullCellAmount" Text="{Binding fullCellAmountInput}" PreviewTextInput="CheckTextInput" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource DefaultTextBox}"/>
+        <Button Name="Button_Generate" Click="ButtonGenerateClick" Grid.Row="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Name="Button_Stop" Click="ButtonStopClick" Grid.Row="1" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Name="Button_Back" Click="ButtonBackCLick" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Page>

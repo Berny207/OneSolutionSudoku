@@ -8,42 +8,42 @@ namespace OneSolutionSudoku
 {
 	internal class Step
 	{
-		public Coordinates coordinates;
-		public int value;
+		public Coordinates Coordinates;
+		public int Value;
 		internal List<int> bannedValues;
 		internal Multimap<Coordinates, int> affectedCoordinates;
 
 		internal Step(Coordinates coordinates, int value)
 		{
-			this.coordinates = coordinates;
-			this.value = value;
+			this.Coordinates = coordinates;
+			this.Value = value;
 			this.bannedValues = new List<int>();
 			this.affectedCoordinates = new Multimap<Coordinates, int>();
 		}
 		internal Step()
 		{
-			this.coordinates = new Coordinates(0, 0);
-			this.value = -1;
+			this.Coordinates = new Coordinates(0, 0);
+			this.Value = -1;
 			this.bannedValues = new List<int>();
 			this.affectedCoordinates = new Multimap<Coordinates, int>();
 		}
 	}
-	internal class Elimination_Step
+	internal class EliminationStep
 	{
-		public Coordinates coordinates;
-		public int value;
+		public Coordinates Coordinates;
+		public int Value;
 		internal List<Coordinates> availibleCoordinates;
 
-		internal Elimination_Step(Coordinates coordinates, int value)
+		internal EliminationStep(Coordinates coordinates, int value)
 		{
-			this.coordinates = coordinates;
-			this.value = value;
+			this.Coordinates = coordinates;
+			this.Value = value;
 			this.availibleCoordinates = new List<Coordinates>();
 		}
-		internal Elimination_Step()
+		internal EliminationStep()
 		{
-			this.coordinates = new Coordinates(0, 0);
-			this.value = -1;
+			this.Coordinates = new Coordinates(0, 0);
+			this.Value = -1;
 			this.availibleCoordinates = new List<Coordinates>();
 		}
 	}

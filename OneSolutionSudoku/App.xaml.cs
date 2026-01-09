@@ -13,7 +13,7 @@ namespace OneSolutionSudoku
     /// </summary>
     public partial class App : Application
     {
-        public void changeColors()
+        public void ChangeColors()
         {
             Application.Current.Resources["PrimaryColor"] = colorHandler.PrimaryColor;
 			Application.Current.Resources["SecondaryColor"] = colorHandler.SecondaryColor;

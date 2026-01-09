@@ -21,9 +21,9 @@ namespace OneSolutionSudoku
         public MainWindow()
         {
             InitializeComponent();
-            languageHandler.loadLanguage();
-            colorHandler.loadColors(settingsHandler.LoadSetting("Primary color"), settingsHandler.LoadSetting("Secondary color"), settingsHandler.LoadSetting("Background color"));
-			App.Instance.changeColors();
+            languageHandler.LoadLanguage();
+            colorHandler.LoadColors(settingsHandler.LoadSetting("Primary color"), settingsHandler.LoadSetting("Secondary color"), settingsHandler.LoadSetting("Background color"));
+			App.Instance.ChangeColors();
             SudokuSavingHandler.saveLocation = settingsHandler.LoadSetting("Save location");
 			MainFrame.Navigate(new Main_Page());
 		}

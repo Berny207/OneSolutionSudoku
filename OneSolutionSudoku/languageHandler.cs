@@ -46,7 +46,8 @@ namespace OneSolutionSudoku
 			{"Label_SecondaryColor", "Interakční barva" },
 			{"Label_BackgroundColor", "Barva pozadí" },
 			{"Label_DefaultPathLocation", "Výchozí složka úložiště"},
-			{"Message_LoadFile_Failed", "Nemohl jsem načíst data z vybraného souboru"}
+			{"Message_LoadFile_Failed", "Nemohl jsem načíst data z vybraného souboru"},
+			{"Button_Clear", "Smazat"  }
 
 		};
 		private static readonly Dictionary<string, string> englishLanguage = new Dictionary<string, string>
@@ -81,46 +82,47 @@ namespace OneSolutionSudoku
 			{"Label_SecondaryColor", "Interactive color" },
 			{"Label_BackgroundColor", "Background color" },
 			{"Label_DefaultPathLocation", "Default save folder location"},
-			{"Message_LoadFile_Failed", "Couldn't load data from selected file"}
+			{"Message_LoadFile_Failed", "Couldn't load data from selected file"},
+			{"Button_Clear", "Clear"}
 		};
-		public static readonly Dictionary<string, string> languageNames = new Dictionary<string, string>
+		public static readonly Dictionary<string, string> LanguageNames = new Dictionary<string, string>
 		{
 			{"cs", "Čeština"},
 			{"en", "English"}
 		};
-		public static readonly Dictionary<string, Dictionary<string, string>> languages = new Dictionary<string, Dictionary<string, string>>
+		public static readonly Dictionary<string, Dictionary<string, string>> LanguageKorpuses = new Dictionary<string, Dictionary<string, string>>
 		{
 			{"cs", czechLanguage },
 			{"en", englishLanguage }
 		};
 		public static void SetLanguage()
 		{
-			ChangeLanguage?.Invoke("langSender", selectedLanguage);
+			ChangeLanguage?.Invoke("langSender", SelectedLanguage);
 		}
-		public static string defaultLanguage = "en";
+		public static string DefaultLanguage = "en";
 		private static string? _selectedLanguage;
-		public static string selectedLanguage
+		public static string SelectedLanguage
 		{
 			get => _selectedLanguage;
 			set
 			{
 				if(value == null)
 				{
-					_selectedLanguage = defaultLanguage;
+					_selectedLanguage = DefaultLanguage;
 				}
-				else if (languageNames.ContainsKey(value))
+				else if (LanguageNames.ContainsKey(value))
 				{
 					_selectedLanguage = value;
 				}
 				else
 				{
-					_selectedLanguage = defaultLanguage;
+					_selectedLanguage = DefaultLanguage;
 				}
 			}
 		}
-		public static void loadLanguage()
+		public static void LoadLanguage()
 		{
-			languageHandler.selectedLanguage = settingsHandler.LoadSetting("language");
+			languageHandler.SelectedLanguage = settingsHandler.LoadSetting("language");
 		}
 	}
 }

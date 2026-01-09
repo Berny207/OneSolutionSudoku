@@ -26,7 +26,7 @@ namespace OneSolutionSudoku
 	/// <summary>
 	/// Interaction logic for OwnCreation_Page.xaml
 	/// </summary>
-	public partial class OwnCreation_Page : Page, Ipage
+	public partial class OwnCreation_Page : Page, IPage
 	{
 		int BorderThickness = 5;
 
@@ -47,7 +47,7 @@ namespace OneSolutionSudoku
 			{
 				for (int column = 0; column < 9; column++)
 				{
-					Border b = new Border
+					Border border = new Border
 					{
 						BorderBrush = System.Windows.Media.Brushes.Black,
 						BorderThickness = new Thickness((column % 3 == 0 ? 1 : 0) * BorderThickness, (row % 3 == 0 ? 1 : 0) * BorderThickness, ((column + 1) % 3 == 0 ? 1 : 0) * BorderThickness, ((row + 1) % 3 == 0 ? 1 : 0) * BorderThickness),
@@ -58,7 +58,7 @@ namespace OneSolutionSudoku
 						
 					};
 
-					TextBox tb = new TextBox
+					TextBox textbox = new TextBox
 					{
 						Margin = new Thickness(0),
 						TextAlignment = TextAlignment.Center,
@@ -66,12 +66,12 @@ namespace OneSolutionSudoku
 						Style = (Style)System.Windows.Application.Current.FindResource("SudokuCellTextBox"),
 					};
 
-					tb.PreviewTextInput += Preview_Text_Input;
-					b.Child = tb;
-					textBoxes[row, column] = tb;
-					Grid.SetRow(b, row);
-					Grid.SetColumn(b, column);
-					SudokuGrid.Children.Add(b);
+					textbox.PreviewTextInput += Preview_Text_Input;
+					border.Child = textbox;
+					textBoxes[row, column] = textbox;
+					Grid.SetRow(border, row);
+					Grid.SetColumn(border, column);
+					SudokuGrid.Children.Add(border);
 				}
 			}
 		}
@@ -87,7 +87,7 @@ namespace OneSolutionSudoku
 				for (int column = 0; column < 9; column++)
 				{
 					Coordinates coordinates = new Coordinates(row, column);
-					int cellValue = sudoku.GetCell(coordinates).value;
+					int cellValue = sudoku.GetCell(coordinates).Value;
 					List<int> allowedValues = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 					// Fix: Use Array.IndexOf instead of Contains for int[]
 					if (allowedValues.Contains(cellValue)==true)
@@ -138,7 +138,7 @@ namespace OneSolutionSudoku
 			}
 			return sudoku;
 		}
-		private void Button_Check_Click(object sender, RoutedEventArgs e)
+		private void ButtonCheckClick(object sender, RoutedEventArgs e)
 		{
 			userSudoku = SaveSudoku();
 			if (userSudoku == null)
@@ -167,8 +167,8 @@ namespace OneSolutionSudoku
 				for (int column = 0; column < 9; column++)
 				{
 					Coordinates coordinates = new Coordinates(row, column);
-					int solvedValue = solvedSudoku.GetCell(coordinates).value;
-					if (userSudoku.GetCell(coordinates).value != 0)
+					int solvedValue = solvedSudoku.GetCell(coordinates).Value;
+					if (userSudoku.GetCell(coordinates).Value != 0)
 					{
 						continue;
 					}
@@ -193,7 +193,7 @@ namespace OneSolutionSudoku
 			MessageBox.Show(CheckMessageOneSolution);
 		}
 
-		private void Button_Solve_Click(object sender, RoutedEventArgs e)
+		private void ButtonSolveClick(object sender, RoutedEventArgs e)
 		{
 			userSudoku = SaveSudoku();
 			if(userSudoku == null)
@@ -213,7 +213,7 @@ namespace OneSolutionSudoku
 		}
 		public string sudokuFileNameInput { get; set; }
 		internal Sudoku userSudoku { get; set; } = new Sudoku();
-		private void Button_Save_Click(object sender, RoutedEventArgs e)
+		private void ButtonSaveClick(object sender, RoutedEventArgs e)
 		{
 			userSudoku = SaveSudoku();
 			if (userSudoku == null)
@@ -231,7 +231,7 @@ namespace OneSolutionSudoku
 			}
 		}
 
-		private void Button_Load_Click(object sender, RoutedEventArgs e)
+		private void ButtonLoadClick(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
 			dialog.InitialDirectory = SudokuSavingHandler.saveLocation;
@@ -250,7 +250,7 @@ namespace OneSolutionSudoku
 				}
 			}
 		}
-		private void Button_Back_Click(object sender, RoutedEventArgs e)
+		private void ButtonBackClick(object sender, RoutedEventArgs e)
 		{
 			NavigationService.Navigate(new Main_Page());
 		}
@@ -270,9 +270,14 @@ namespace OneSolutionSudoku
 			e.Handled = IsTextNumerical(e.Text);
 		}
 
+		private void ButtonClearClick(object sender, RoutedEventArgs e)
+		{
+			userSudoku = new Sudoku();
+			LoadSudoku(userSudoku);
+		}
 		public void OnChangeLanguage(object sender, string selectedLanguague)
 		{
-			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.languages[selectedLanguague];
+			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.LanguageKorpuses[selectedLanguague];
 			foreach (string key in languageKorpus.Keys)
 			{
 				if(key == "Message_SudokuCheck_OneSolution")

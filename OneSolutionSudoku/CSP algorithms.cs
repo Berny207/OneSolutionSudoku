@@ -23,7 +23,7 @@ namespace OneSolutionSudoku
 			int minimalConstraintValue = 20;
 			List<int> candidateValues = new List<int>();
 			Cell selectedCell = sudoku.GetCell(selectedCoordinates);
-			foreach (int value in selectedCell.possibleValues)
+			foreach (int value in selectedCell.PossibleValues)
 			{
 				if (bannedValues.Contains(value))
 				{
@@ -57,17 +57,17 @@ namespace OneSolutionSudoku
 				for (int column = 0; column < 9; column++)
 				{
 					Coordinates coordinates = new Coordinates(row, column);
-					if(sudoku.GetCell(coordinates).value != 0)
+					if(sudoku.GetCell(coordinates).Value != 0)
 					{
 						continue;
 					}
-					if (sudoku.GetCell(coordinates).possibleValues.Count < minDomainSize)
+					if (sudoku.GetCell(coordinates).PossibleValues.Count < minDomainSize)
 					{
-						minDomainSize = sudoku.GetCell(coordinates).possibleValues.Count;
+						minDomainSize = sudoku.GetCell(coordinates).PossibleValues.Count;
 						mostConstrainedCells.Clear();
 						mostConstrainedCells.Add(coordinates);
 					}
-					else if (sudoku.GetCell(coordinates).possibleValues.Count == minDomainSize)
+					else if (sudoku.GetCell(coordinates).PossibleValues.Count == minDomainSize)
 					{
 						mostConstrainedCells.Add(coordinates);
 					}
@@ -84,7 +84,7 @@ namespace OneSolutionSudoku
 				{
 					foreach (int affectedValue in kvp.Value)
 					{
-						sudoku.GetCell(kvp.Key).possibleValues.Add(affectedValue);
+						sudoku.GetCell(kvp.Key).PossibleValues.Add(affectedValue);
 					}
 				}
 				return (false, updatedCoordinates);
@@ -108,11 +108,11 @@ namespace OneSolutionSudoku
 			List<Coordinates> listOfCoordinates = sudoku.GetSpaceNeighbours(coordinates);
 			foreach (Coordinates updatingCoordinates in listOfCoordinates)
 			{
-				if(sudoku.GetCell(updatingCoordinates).value != 0)
+				if(sudoku.GetCell(updatingCoordinates).Value != 0)
 				{
 					continue;
 				}
-				List<int> cellPossibleValues = sudoku.GetCell(updatingCoordinates).possibleValues;
+				List<int> cellPossibleValues = sudoku.GetCell(updatingCoordinates).PossibleValues;
 				if (cellPossibleValues.Contains(value))
 				{
 					updatedCoordinates.Add(updatingCoordinates, value);

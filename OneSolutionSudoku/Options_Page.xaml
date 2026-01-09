@@ -40,9 +40,9 @@
         <ComboBox Name="LanguageSelector" ItemsSource="{Binding Languages}" SelectedItem="{Binding boundLanguage, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Padding="{StaticResource ComboBoxPadding}" Margin="{StaticResource ButtonMargin}"/>
         <!--<Label Name="Label_DefaultPathLocation" Style="{StaticResource DefaultLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="10"/>
         <Label Name="Label_DefaultPath" Style="{StaticResource ScaledLabel}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2"/>-->
-        <Button Name="Button_FolderSelect" Click="Button_FolderSelect_Click" Style="{StaticResource RoundedButton}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="4"/>
-        <Button Name="Button_Confirm" Click="Button_Confirm_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="4"/>
-        <Button Name="Button_Defaults" Click="Button_Defaults_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" Grid.ColumnSpan="4"/>
-        <Button Name="Button_Back" Click="Button_Back_Click" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="4"/>
+        <Button Name="Button_FolderSelect" Click="ButtonFolderSelectClick" Style="{StaticResource RoundedButton}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="4"/>
+        <Button Name="Button_Confirm" Click="ButtonConfirm" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="4"/>
+        <Button Name="Button_Defaults" Click="ButtonDefaultsClick" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" Grid.ColumnSpan="4"/>
+        <Button Name="Button_Back" Click="ButtonBackClick" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="4"/>
     </Grid>
 </Page>

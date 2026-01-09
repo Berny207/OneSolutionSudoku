@@ -22,10 +22,11 @@
             <UniformGrid x:Name="SudokuGrid">
             </UniformGrid>
         </Viewbox>
-        <Button Name="Button_Back" Click="Button_Back_Click" Grid.Row="3" Grid.ColumnSpan="4" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
-        <Button Name="Button_Save" Click="Button_Save_Click" Grid.Row="2" Grid.Column="0" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
-        <Button Name="Button_Load" Click="Button_Load_Click" Grid.Row="2" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
-        <Button Name="Button_Check" Click="Button_Check_Click" Grid.Row="1" Grid.Column="0" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
-        <Button Name="Button_Solve" Click="Button_Solve_Click" Grid.Row="1" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
+        <Button Name="Button_Back" Click="ButtonBackClick" Grid.Row="3" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
+        <Button Name="Button_Save" Click="ButtonSaveClick" Grid.Row="2" Grid.Column="0" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
+        <Button Name="Button_Load" Click="ButtonLoadClick" Grid.Row="2" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
+        <Button Name="Button_Check" Click="ButtonCheckClick" Grid.Row="1" Grid.Column="0" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
+        <Button Name="Button_Solve" Click="ButtonSolveClick" Grid.Row="1" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
+        <Button Name="Button_Clear" Click="ButtonClearClick" Grid.Row="3" Grid.Column="1" Style="{StaticResource RoundedButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10"/>
     </Grid>
 </Page>

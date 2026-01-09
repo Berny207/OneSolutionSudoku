@@ -23,7 +23,7 @@ namespace OneSolutionSudoku
 				for (int column = 0; column < 9; column++)
 				{
 					Cell cell = sudoku.GetCell(new Coordinates(row, column));
-					if (cell.value == 0)
+					if (cell.Value == 0)
 					{
 						return false;
 					}
@@ -55,8 +55,8 @@ namespace OneSolutionSudoku
 						return false;
 					}
 					currentStep = stepsTaken.Pop();
-					currentStep.bannedValues.Add(currentStep.value);
-					sudoku.revertAssignment(currentStep);
+					currentStep.bannedValues.Add(currentStep.Value);
+					sudoku.RevertAssignment(currentStep);
 				}
 				else
 				{
@@ -66,16 +66,16 @@ namespace OneSolutionSudoku
 					}
 					// Create a new Step
 					List<Coordinates> constrainedVariables = CSPAlgorithms.GetMostConstrainedVariables(sudoku);
-					currentStep.coordinates = constrainedVariables[random.Next(constrainedVariables.Count)];
+					currentStep.Coordinates = constrainedVariables[random.Next(constrainedVariables.Count)];
 				}
 				backtrack = false;
 				bool isPossibleAssignment = false;
 				while (isPossibleAssignment == false)
 				{
 					// Select least constrained unbanned variable 
-					List<int> possileAssignmentValues = CSPAlgorithms.GetLeastConstrainedValues(sudoku, currentStep.coordinates, currentStep.bannedValues);
+					List<int> possileAssignmentValues = CSPAlgorithms.GetLeastConstrainedValues(sudoku, currentStep.Coordinates, currentStep.bannedValues);
 					if (possileAssignmentValues.Count > 0) {
-						currentStep.value = possileAssignmentValues[random.Next(possileAssignmentValues.Count)];
+						currentStep.Value = possileAssignmentValues[random.Next(possileAssignmentValues.Count)];
 					}
 					else
 					{
@@ -85,11 +85,11 @@ namespace OneSolutionSudoku
 					}
 					// Try to assign value to cell
 
-					(isPossibleAssignment, Multimap<Coordinates, int> updatedCellCoordinates) = CSPAlgorithms.AssignValue(sudoku, currentStep.coordinates, currentStep.value);
+					(isPossibleAssignment, Multimap<Coordinates, int> updatedCellCoordinates) = CSPAlgorithms.AssignValue(sudoku, currentStep.Coordinates, currentStep.Value);
 
 					if(isPossibleAssignment == false)
 					{
-						currentStep.bannedValues.Add(currentStep.value);
+						currentStep.bannedValues.Add(currentStep.Value);
 					}
 					else
 					{
@@ -120,7 +120,7 @@ namespace OneSolutionSudoku
 			foreach (Coordinates fullCellCoordinate in availibleValues)
 			{
 				Cell fullCell = sudoku.GetCell(fullCellCoordinate);
-				valueCounts[fullCell.value]++;
+				valueCounts[fullCell.Value]++;
 			}
 			int highestValueCount = 0;
 			int mostFrequentValue = 0;
@@ -136,7 +136,7 @@ namespace OneSolutionSudoku
 			foreach (Coordinates fullCellCoordinate in availibleValues)
 			{
 				Cell fullCell = sudoku.GetCell(fullCellCoordinate);
-				if(fullCell.value == mostFrequentValue)
+				if(fullCell.Value == mostFrequentValue)
 				{
 					selection.Add(fullCellCoordinate);
 				}
@@ -151,18 +151,18 @@ namespace OneSolutionSudoku
 			sudoku.SetPossibleValues();
 			Sudoku solvedSudoku = sudoku.Clone();
 			// Set possible values for all empty cells
-			Stack<Elimination_Step> removedCells = new Stack<Elimination_Step>();
+			Stack<EliminationStep> removedCells = new Stack<EliminationStep>();
 			bool backtrack = false;
 			// Select random cell to remove
 			while (missingCells >= removedCells.Count)
 			{
 				token.ThrowIfCancellationRequested();
-				Elimination_Step currentStep = new Elimination_Step();
+				EliminationStep currentStep = new EliminationStep();
 				if (backtrack == true)
 				{
 					currentStep = removedCells.Pop();
-					currentStep.availibleCoordinates.Remove(currentStep.coordinates);
-					sudoku.SetCell(currentStep.coordinates, currentStep.value);
+					currentStep.availibleCoordinates.Remove(currentStep.Coordinates);
+					sudoku.SetCell(currentStep.Coordinates, currentStep.Value);
 					// Revert last removed cell, backtrack
 					// Code commented is multi-step backtracking
 					/*for (int i = 0; i < 10; i++)
@@ -178,7 +178,7 @@ namespace OneSolutionSudoku
 				else
 				{
 					// Create new step
-					currentStep = new Elimination_Step();
+					currentStep = new EliminationStep();
 					currentStep.availibleCoordinates = sudoku.GetFullCells();
 				}
 
@@ -195,28 +195,28 @@ namespace OneSolutionSudoku
 						break;
 					}
 					// Select random coordinates from the availible ones
-					currentStep.coordinates = SelectValueToRemove(sudoku, currentStep.availibleCoordinates);
-					currentStep.value = sudoku.GetCell(currentStep.coordinates).value;
+					currentStep.Coordinates = SelectValueToRemove(sudoku, currentStep.availibleCoordinates);
+					currentStep.Value = sudoku.GetCell(currentStep.Coordinates).Value;
 					// Try to remove current step cell
 					bool isDuplicate = false;
 					// Try to find a solution with different value in the removed cell
 
-					sudoku.SetCell(currentStep.coordinates, 0);
-					sudoku.SetPossibleValuesForCell(currentStep.coordinates);
-					List<int> possibleValues = sudoku.GetCell(currentStep.coordinates).possibleValues;
-					possibleValues.Remove(solvedSudoku.GetCell(currentStep.coordinates).value);
+					sudoku.SetCell(currentStep.Coordinates, 0);
+					sudoku.SetPossibleValuesForCell(currentStep.Coordinates);
+					List<int> possibleValues = sudoku.GetCell(currentStep.Coordinates).PossibleValues;
+					possibleValues.Remove(solvedSudoku.GetCell(currentStep.Coordinates).Value);
 					foreach (int startValue in possibleValues)
 					{
 						Sudoku cloneDoku = sudoku.Clone();
-						cloneDoku.SetCell(currentStep.coordinates, startValue);
+						cloneDoku.SetCell(currentStep.Coordinates, startValue);
 						isDuplicate = SolveSudoku(cloneDoku);
 						if (isDuplicate == true)
 						{
 							// Found another solution with different value in removed cell
 							// That cell CANNOT be removed
 							// Revert and try different cell
-							sudoku.SetCell(currentStep.coordinates, currentStep.value);
-							currentStep.availibleCoordinates.Remove(currentStep.coordinates);
+							sudoku.SetCell(currentStep.Coordinates, currentStep.Value);
+							currentStep.availibleCoordinates.Remove(currentStep.Coordinates);
 							break;
 						}
 					}

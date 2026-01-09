@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OneSolutionSudoku
 {
-    interface Ipage
+    interface IPage
     {
         abstract public void OnChangeLanguage(object sender, string selectedLanguague);
 	}

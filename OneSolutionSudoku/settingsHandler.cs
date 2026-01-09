@@ -15,7 +15,7 @@ namespace OneSolutionSudoku
 		{
 			FileStream settingsFile = File.Create(fileName);
 			StreamWriter writer = new StreamWriter(settingsFile);
-			writer.WriteLine($"language{delimeter}{languageHandler.selectedLanguage}");
+			writer.WriteLine($"language{delimeter}{languageHandler.SelectedLanguage}");
 			writer.WriteLine($"Primary color{delimeter}#{colorHandler.PrimaryColor.Color.R:X2}{colorHandler.PrimaryColor.Color.G:X2}{colorHandler.PrimaryColor.Color.B:X2}");
 			writer.WriteLine($"Secondary color{delimeter}#{colorHandler.SecondaryColor.Color.R:X2}{colorHandler.SecondaryColor.Color.G:X2}{colorHandler.SecondaryColor.Color.B:X2}");
 			writer.WriteLine($"Background color{delimeter}#{colorHandler.BackgroundColor.Color.R:X2}{colorHandler.BackgroundColor.Color.G:X2}{colorHandler.BackgroundColor.Color.B:X2}");

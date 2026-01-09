@@ -53,20 +53,19 @@ namespace OneSolutionSudoku
             int i = 0;
             foreach (string part in stringDoku.Split(' '))
             {
-                if(part == "\r\n\r\n")
+				string trimmedPart = part.Trim();
+				if (part == "\r\n\r\n")
                 {
+                    continue;
                     // Skip part
                 }
-                else
+				Coordinates coordinates = new Coordinates(i/9, i%9);
+                if(!Regex.IsMatch(trimmedPart, @"^[0-9]+$"))
                 {
-                    Coordinates coordinates = new Coordinates(i/9, i%9);
-                    if(!Regex.IsMatch(part, @"^[0-9]+$"))
-                    {
-                        return null;
-                    }
-                    sudoku.SetCell(coordinates, int.Parse(part));
-                    i++;
+					return null;
                 }
+                sudoku.SetCell(coordinates, int.Parse(trimmedPart));
+                i++;
             }
             return sudoku;
         }

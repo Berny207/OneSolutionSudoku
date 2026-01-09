@@ -25,7 +25,7 @@ namespace OneSolutionSudoku
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class Options_Page : Page, Ipage, INotifyPropertyChanged
+    public partial class Options_Page : Page, IPage, INotifyPropertyChanged
     {
         public Options_Page()
         {
@@ -47,7 +47,7 @@ namespace OneSolutionSudoku
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void Button_Back_Click(object sender, RoutedEventArgs e)
+		private void ButtonBackClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Main_Page());
         }
@@ -56,34 +56,34 @@ namespace OneSolutionSudoku
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void Button_Confirm_Click(object sender, RoutedEventArgs e)
+		private void ButtonConfirm(object sender, RoutedEventArgs e)
 		{
 			colorHandler.PrimaryColor = new SolidColorBrush(boundPrimaryColor);
 			colorHandler.SecondaryColor = new SolidColorBrush(boundSecondaryColor);
 			colorHandler.BackgroundColor = new SolidColorBrush(boundBackgroundColor);
 			if (boundLanguage == null) return;
-			languageHandler.selectedLanguage = languageHandler.languageNames.FirstOrDefault(x => x.Value == boundLanguage).Key;
+			languageHandler.SelectedLanguage = languageHandler.LanguageNames.FirstOrDefault(x => x.Value == boundLanguage).Key;
 			languageHandler.SetLanguage();
 			settingsHandler.SaveSettings();
-			App.Instance.changeColors();
+			App.Instance.ChangeColors();
 		}
 		/// <summary>
 		/// Sets default settings and calls confirm button click event.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void Button_Defaults_Click(object sender, RoutedEventArgs e)
+		private void ButtonDefaultsClick(object sender, RoutedEventArgs e)
 		{
-			boundPrimaryColor = colorHandler.defaultPrimaryColor.Color;
+			boundPrimaryColor = colorHandler.DefaultPrimaryColor.Color;
 			OnPropertyChanged(nameof(boundPrimaryColor));
-			boundSecondaryColor = colorHandler.defaultSecondaryColor.Color;
+			boundSecondaryColor = colorHandler.DefaultSecondaryColor.Color;
 			OnPropertyChanged(nameof(boundSecondaryColor));
-			boundBackgroundColor = colorHandler.defaultBackgroundColor.Color;
+			boundBackgroundColor = colorHandler.DefaultBackgroundColor.Color;
 			OnPropertyChanged(nameof(boundBackgroundColor));
-			boundLanguage = languageHandler.languageNames[languageHandler.defaultLanguage];
+			boundLanguage = languageHandler.LanguageNames[languageHandler.DefaultLanguage];
 			OnPropertyChanged(nameof(boundLanguage));
 			SudokuSavingHandler.saveLocation = SudokuSavingHandler.defaultSaveLocation;
-			Button_Confirm_Click(sender, e);
+			ButtonConfirm(sender, e);
 		}
 		/// <summary>
 		/// Processes the Folder Select button click event and opens a folder browser dialog.
@@ -92,7 +92,7 @@ namespace OneSolutionSudoku
 		/// <param name="e"></param>
 		/// 
 
-		private void Button_FolderSelect_Click(object sender, RoutedEventArgs e)
+		private void ButtonFolderSelectClick(object sender, RoutedEventArgs e)
 		{
 			FolderBrowserDialog dialog = new FolderBrowserDialog();
 			dialog.InitialDirectory = SudokuSavingHandler.saveLocation;
@@ -108,7 +108,7 @@ namespace OneSolutionSudoku
 		public Color boundPrimaryColor { get; set; } = colorHandler.PrimaryColor.Color;
 		public Color boundSecondaryColor { get; set; } = colorHandler.SecondaryColor.Color;
 		public Color boundBackgroundColor { get; set; } = colorHandler.BackgroundColor.Color;
-		public string boundLanguage { get; set; } = languageHandler.languageNames[languageHandler.selectedLanguage];
+		public string boundLanguage { get; set; } = languageHandler.LanguageNames[languageHandler.SelectedLanguage];
 		/// <summary>
 		/// Processes language change events and updates UI elements accordingly.
 		/// </summary>
@@ -117,12 +117,12 @@ namespace OneSolutionSudoku
 		public void OnChangeLanguage(object sender, string selectedLanguague)
         {
 			Languages = new List<string>();
-			List<string> languageNames = OneSolutionSudoku.languageHandler.languageNames.Values.ToList();
+			List<string> languageNames = OneSolutionSudoku.languageHandler.LanguageNames.Values.ToList();
 			foreach(string languagueName in languageNames)
 			{
 				Languages.Add(languagueName);
 			}
-			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.languages[selectedLanguague];
+			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.LanguageKorpuses[selectedLanguague];
 			foreach (string key in languageKorpus.Keys)
 			{
 				var findMeResult = this.FindName(key);

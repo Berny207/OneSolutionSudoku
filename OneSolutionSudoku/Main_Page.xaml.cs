@@ -22,7 +22,7 @@ namespace OneSolutionSudoku
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class Main_Page : Page, Ipage
+    public partial class Main_Page : Page, IPage
     {
 		MainWindow mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
 		static Random random = new Random();
@@ -32,25 +32,25 @@ namespace OneSolutionSudoku
 			languageHandler.ChangeLanguage += OnChangeLanguage;
 			languageHandler.SetLanguage();
 		}
-		private void Button_End_Click(object sender, RoutedEventArgs e)
+		private void ButtonEndClick(object sender, RoutedEventArgs e)
 		{
 			System.Windows.Application.Current.Shutdown();
 		}
-		private void Button_OwnCreation_Click(object sender, RoutedEventArgs e)
+		private void ButtonOwnCreationClick(object sender, RoutedEventArgs e)
 		{
 			mainWindow.MainFrame.Navigate(new OwnCreation_Page());
 		}
-		private void Button_Generate_Click(object sender, RoutedEventArgs e)
+		private void ButtonGenerateClick(object sender, RoutedEventArgs e)
 		{
 			NavigationService.Navigate(new Generate_Page());
 		}
-		private void Button_Options_Click(object sender, RoutedEventArgs e)
+		private void ButtonOptionsClick(object sender, RoutedEventArgs e)
 		{
 			bool success = NavigationService.Navigate(new Options_Page());
 		}
 		public void OnChangeLanguage(object sender, string selectedLanguague)
 		{
-			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.languages[selectedLanguague];
+			Dictionary<string, string> languageKorpus = OneSolutionSudoku.languageHandler.LanguageKorpuses[selectedLanguague];
 			foreach (string key in languageKorpus.Keys)
 			{
 				var findMeResult = this.FindName(key);
